@@ -86,7 +86,7 @@
 				<p> <label> <?php print_r($variavel["subtrair"]); ?></label> </p>
 				<p> <label> <?php print_r($variavel["multiplicar"]); ?></label> </p>
 				<p> <label> <?php print_r($variavel["dividir"]); ?></label> </p>
-				<p> <label> <a class="waves-effect waves-light btn-small" href="/">VOLTAR</a> </label> </p>
+				<p> <label> <a class="waves-effect waves-light btn-small" href="calculadora-materialize.php">VOLTAR</a> </label> </p>
 				<p><br></p>
 			</div>
 		</center>
