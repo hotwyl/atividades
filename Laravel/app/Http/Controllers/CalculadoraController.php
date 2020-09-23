@@ -17,13 +17,15 @@ class calculadoraController extends Controller
     //     //
     // }
 
-    public function bootstrap()
+    public function calculadoraGET()
     {
-        return view('calculadora.bootstrap');
+        return view('calculadora.calculadora-simples');
     }
 
-    public function materialize()
+    public function calculadoraPOST(Request $request)
     {
-        return view('calculadora.materialize');
+        return view('calculadora.calculadora-simples', $request->all());
     }
+
+
 }

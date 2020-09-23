@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('calculadora.calculadora-simples');
 });
 
 Route::prefix('calculadora')->group(function () {
-    Route::get('/bootstrap','CalculadoraController@bootstrap');
-    Route::get('/materialize','CalculadoraController@materialize');
+    Route::get('/','CalculadoraController@calculadoraGET');
+    Route::post('/','CalculadoraController@calculadoraPOST');
 });
 
