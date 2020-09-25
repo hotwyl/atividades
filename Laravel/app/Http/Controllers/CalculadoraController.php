@@ -2,30 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CalculadoraService;
 use Illuminate\Http\Request;
 
-class calculadoraController extends Controller
-{
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function __invoke(Request $request)
-    // {
-    //     //
-    // }
+class calculadoraController extends Controller {
 
-    public function calculadoraGET()
+    public function __construct(CalculadoraService $service)
     {
-        return view('calculadora.calculadora-simples');
+        $this->service = $service;
     }
 
-    public function calculadoraPOST(Request $request)
-    {
-        return view('calculadora.calculadora-simples', $request->all());
+    public function calculadoraGET() {
+        return $this->service->calculadoraGET();
     }
 
+    public function calculadoraPOST(Request $request) {
+        return $this->service->calculadoraPOST($request->all());
+    }
 
 }
