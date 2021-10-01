@@ -36,7 +36,7 @@ include_once 'funcao.php';
 
 	<main role="main" class="container" style="margin-top: 5%;">
 		<?php
-		include_once 'calculadora-simples.php';
+		include_once 'app.php';
 		?>
 	</main>
 
