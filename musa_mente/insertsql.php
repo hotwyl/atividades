@@ -5,13 +5,23 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$servername="mysql743.umbler.com:41890";
+// $servername="mysql743.umbler.com:41890";
 
-$username="adima";
+// $username="adima";
 
-$password="3278Data";
+// $password="3278Data";
 
-$dbname="dataarqmm";
+// $dbname="dataarqmm";
+
+$servername="nspro32.hostgator.com.br:3306";
+
+$username="hg3won41_hotwyl";
+
+$password="willfrombrasil";
+
+$dbname="hg3won41_musa_mente";
+
+
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
