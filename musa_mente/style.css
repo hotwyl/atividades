@@ -11,6 +11,10 @@
     }
     
     body {
+        background-image: url(./Design_sem_nome.png?width=1018&height=679);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
         font-family: sf pro text, sf pro icons, helvetica neue, helvetica, arial, sans-serif;
         font-size: 1.6rem;
         line-height: 1.65;
@@ -26,6 +30,21 @@
         max-height: 100vh;
         max-height: -webkit-fill-available;
         margin: 0
+    }
+
+    .box-transparent {
+        background-color: rgba(66, 78, 92, 0.6);
+        margin-left: 120px;
+        margin-right: 120px;
+        margin-bottom: 40px;
+        border-radius: 10px;
+    }
+    
+    .btn-dark,
+    .btn-dark:hover,
+    .btn-dark:active,
+    .btn-dark:visited {
+        background-color: #6D213C !important;
     }
     
      ::selection {
@@ -232,6 +251,37 @@
         line-height: 1.8;
         color: #0070f3
     }
+
+
+
+
+    /* text {
+        text-align: center;
+    }
+    
+    .detail {
+        color: #6D213C;
+    }
+    
+    .text2 {
+        color: #ffffff;
+    }
+    
+    h4 {
+        color: #ffffff;
+    }
+    
+    h2 {
+        color: #ffffff;
+    }
+    
+    .forms {
+        color: #ffffff;
+    } */
+
+
+
+
     
     @media(max-width:500px) {
         .devinfo-container .devinfo-line code {
