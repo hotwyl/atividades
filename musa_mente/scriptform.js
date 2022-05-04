@@ -731,6 +731,7 @@ function enviarFinal() {
 
     } else {
 
+
         window.location.replace('./insertsql.php?at=' + window.at + '&af=' + window.af + '&pe=' + window.pe + '&ar=' + window.ar + '&de=' + window.de + '&he=' + window.he + '&email=' + window.email)
 
     }
