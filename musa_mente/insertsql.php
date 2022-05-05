@@ -100,3 +100,4 @@ echo nl2br ("Resultado enviado ao banco de dados, o resultado estará disponíve
 echo nl2br ("Pode fechar esta aba. \n");
 
 $conn->close();
+
