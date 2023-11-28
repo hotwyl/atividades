@@ -90,7 +90,7 @@
         <button v-if="step === 2" @click="goToHome" class="bg-gray-500 text-white px-4 py-2 w-full mt-2"><i class="fas fa-home mr-2"></i>Voltar à Página Inicial</button>
         <!-- Rodapé -->
         <footer class="mt-8">
-            <p class="text-sm text-gray-500 text-center">&copy; 2023 Sistema de Sorteio Online. Todos os direitos reservados.</p>
+            <p class="text-sm text-gray-500 text-center">Feito com ♥ por hotwyl | Sistema de Sorteio Online &reg; Todos os direitos reservados | &copy; <a href="#" target="_blank">WILLFROMBRASIL</a>™ Company Inc <span>{{ year }}</p>
         </footer>
     </div>
 
@@ -108,6 +108,7 @@
                     repeatNames: false,
                     historyNumbers: [],
                     historyNames: [],
+                    year: new Date().getFullYear(),
                 };
             },
             methods: {
@@ -270,6 +271,13 @@
                     });
                 },
             },
+            created() {
+                this.year = new Date().getFullYear();
+            },
+            mounted() {
+            },
+            updated() {
+            }
         });
 
         app.mount('#app');
