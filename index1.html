@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio via Redes Sociais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sorteio Via Redes Sociais</h1>
+        <p>Clique no botão abaixo para participar do sorteio!</p>
+        <p>Escolha a rede social pela qual deseja participar:</p>
+        <button id="participarBtn" onclick="participarSorteio('teste')">Participar</button>
+        <button onclick="participarSorteio('instagram')">Participar via Instagram</button>
+        <button onclick="participarSorteio('facebook')">Participar via Facebook</button>
+        <button onclick="participarSorteio('youtube')">Participar via YouTube</button>
+        <button onclick="participarSorteio('linkedin')">Participar via LinkedIn</button>
+
+        <label for="email">Participar via E-mail:</label>
+        <input type="email" id="email" placeholder="Seu e-mail">
+        <button onclick="participarSorteio('email')">Participar via E-mail</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function participarSorteio(plataforma) {
+            // Aqui você implementaria a lógica de integração com a API da plataforma escolhida
+            // Pode envolver autenticação, autorização e solicitações para participação
+
+            if (plataforma === 'email') {
+                var email = document.getElementById('email').value;
+
+                // Validar o e-mail (pode ser necessário um método mais robusto)
+                if (!isValidEmail(email)) {
+                    alert("Por favor, insira um e-mail válido.");
+                    return;
+                }
+
+                // Aqui você pode implementar a lógica para participação via e-mail
+                // Pode incluir o e-mail na lista de participantes ou enviar uma confirmação, etc.
+                
+                document.getElementById("resultado").innerHTML = "Parabéns! Você está participando via e-mail.";
+            } else {
+
+                // Lógica para outras plataformas (Instagram, Facebook, YouTube, LinkedIn)
+        // ...
+
+
+                // Simulação de uma lista de participantes
+                var participantes = ["João", "Maria", "Carlos", "Ana", "Pedro"];
+
+                // Verificar se há participantes
+                if (participantes.length === 0) {
+                    document.getElementById("resultado").innerHTML = "Não há participantes.";
+                    return;
+                }
+
+                // Escolher um vencedor aleatório
+                var indiceVencedor = Math.floor(Math.random() * participantes.length);
+                var vencedor = participantes[indiceVencedor];
+
+                // Exibir o resultado
+                document.getElementById("resultado").innerHTML = "Parabéns, " + vencedor + "! Você ganhou via " + plataforma + "!";
+            }
+        }
+        function isValidEmail(email) {
+            // Lógica de validação de e-mail simples
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+    </script>
+</body>
+</html>

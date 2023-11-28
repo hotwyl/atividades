@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio via Redes Sociais</title>
+    <!-- Adicionando Materialize CSS via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Adicionando Font Awesome via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="blue-grey lighten-5">
+
+    <header>
+        <!-- Cabeçalho Materialize -->
+        <nav class="blue darken-2">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">Sorteio</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <div class="container">
+            <h1 class="center-align">Sorteio Via Redes Sociais</h1>
+            <p class="center-align">Clique no botão abaixo para participar do sorteio!</p>
+            <p class="center-align">Escolha a rede social pela qual deseja participar:</p>
+
+            <!-- Botões Materialize -->
+            <div class="row center-align">
+                <div class="col s12 m6 l4">
+                    <button id="participarBtn" onclick="participarSorteio('teste')" class="btn waves-effect waves-light">Participar</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button onclick="participarSorteio('instagram')" class="btn waves-effect waves-light">Participar via Instagram</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button onclick="participarSorteio('facebook')" class="btn waves-effect waves-light">Participar via Facebook</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button onclick="participarSorteio('youtube')" class="btn waves-effect waves-light">Participar via YouTube</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button onclick="participarSorteio('linkedin')" class="btn waves-effect waves-light">Participar via LinkedIn</button>
+                </div>
+                <div class="col s12 m6 l4">
+            </div>
+
+            <!-- Input Materialize para participação via E-mail -->
+        <div class="row center-align">
+            <div class="input-field col s12 m6">
+                <label for="email">Participar via E-mail:</label>
+                <input type="email" id="email" placeholder="Seu e-mail">
+            </div>
+            <div class="col s12 m6">
+                <button onclick="participarSorteio('email')" class="btn waves-effect waves-light">Participar via E-mail</button>
+            </div>
+        </div>
+
+         <!-- Resultado Materialize -->
+         <div class="row center-align">
+            <div class="col s12">
+                <p id="resultado"></p>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- Rodapé Materialize -->
+    <footer class="page-footer blue darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Sorteio</h5>
+                    <p class="grey-text text-lighten-4">Seu portal de sorteios favorito.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Adicionando SweetAlert via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Adicionando Materialize JS via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Adicionando script personalizado -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar componentes do Materialize
+            M.AutoInit();
+        });
+
+        function participarSorteio(plataforma) {
+            // Aqui você implementaria a lógica de integração com a API da plataforma escolhida
+            // Pode envolver autenticação, autorização e solicitações para participação
+
+            if (plataforma === 'email') {
+                var email = document.getElementById('email').value;
+
+                // Validar o e-mail (pode ser necessário um método mais robusto)
+                if (!isValidEmail(email)) {
+                    alert("Por favor, insira um e-mail válido.");
+                    return;
+                }
+
+                // Aqui você pode implementar a lógica para participação via e-mail
+                // Pode incluir o e-mail na lista de participantes ou enviar uma confirmação, etc.
+                
+                document.getElementById("resultado").innerHTML = "Parabéns! Você está participando via e-mail.";
+            } else {
+
+                // Lógica para outras plataformas (Instagram, Facebook, YouTube, LinkedIn)
+        // ...
+
+
+                // Simulação de uma lista de participantes
+                var participantes = ["João", "Maria", "Carlos", "Ana", "Pedro"];
+
+                // Verificar se há participantes
+                if (participantes.length === 0) {
+                    document.getElementById("resultado").innerHTML = "Não há participantes.";
+                    return;
+                }
+
+                // Escolher um vencedor aleatório
+                var indiceVencedor = Math.floor(Math.random() * participantes.length);
+                var vencedor = participantes[indiceVencedor];
+
+                // Exibir o resultado
+                document.getElementById("resultado").innerHTML = "Parabéns, " + vencedor + "! Você ganhou via " + plataforma + "!";
+
+                // Exemplo de uso do SweetAlert para mostrar o resultado
+            Swal.fire({
+                title: 'Sorteio Concluído!',
+                text: 'Parabéns, você está participando!',
+                icon: 'success',
+                timer: 5000, // Tempo em milissegundos (5 segundos)
+                timerProgressBar: true,
+                showConfirmButton: false
+            });
+
+            }
+        }
+        function isValidEmail(email) {
+            // Lógica de validação de e-mail simples
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+    </script>
+</body>
+</html>
