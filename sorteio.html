@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Sorteio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -14,11 +15,16 @@
 
     <div id="app" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
 
+        <!-- Cabeçalho -->
+        <header class="mb-6">
+            <h1 class="text-2xl font-semibold text-center"><i class="fas fa-dice text-blue-500 mr-2"></i>Sistema de Sorteio Online</h1>
+        </header>
+
         <!-- Parte 1: Escolher o Tipo de Sorteio -->
         <div v-if="step === 1">
             <h2 class="text-lg font-semibold mb-4 text-center">Escolha o Tipo de Sorteio</h2>
-            <button @click="selectType('number')" class="bg-blue-500 text-white px-4 py-2 w-full mb-4">Sorteio por Números</button>
-            <button @click="selectType('name')" class="bg-blue-500 text-white px-4 py-2 w-full">Sorteio por Nomes</button>
+            <button @click="selectType('number')" class="bg-blue-500 text-white px-4 py-2 w-full mb-4"><i class="fas fa-dice mr-2"></i>Sorteio por Números</button>
+            <button @click="selectType('name')" class="bg-blue-500 text-white px-4 py-2 w-full"><i class="fas fa-user mr-2"></i>Sorteio por Nomes</button>
         </div>
 
         <!-- Parte 2: Sorteio por Números -->
@@ -27,22 +33,22 @@
             <div>
                 <h2 class="text-lg font-semibold mb-4 text-center">Sorteio por Números</h2>
                 <div class="flex items-center mb-4">
-                    <label for="quantity" class="mr-2">Quantidade de Números:</label>
+                    <label for="quantity" class="mr-3"><i class="fas fa-question-circle text-gray-500 cursor-pointer mr-5" @click="showHelp('quantity')"></i>Quantidade de Números:</label>
                     <input v-model="quantity" type="number" id="quantity" class="border p-2 w-16 text-center" />
                 </div>
                 <div class="flex items-center mb-4">
-                    <label for="minNumber" class="mr-2">Número Mínimo:</label>
+                    <label for="minNumber" class="mr-3"><i class="fas fa-question-circle text-gray-500 cursor-pointer mr-5" @click="showHelp('minNumber')"></i>Número Mínimo:</label>
                     <input v-model="minNumber" type="number" id="minNumber" class="border p-2 w-16 text-center" />
                 </div>
                 <div class="flex items-center mb-4">
-                    <label for="maxNumber" class="mr-2">Número Máximo:</label>
+                    <label for="maxNumber" class="mr-3"><i class="fas fa-question-circle text-gray-500 cursor-pointer mr-5" @click="showHelp('maxNumber')"></i>Número Máximo:</label>
                     <input v-model="maxNumber" type="number" id="maxNumber" class="border p-2 w-16 text-center" />
                 </div>
                 <div class="flex items-center mb-4">
-                    <label for="repeat" class="mr-2">Repetir Números:</label>
+                    <label for="repeat" class="mr-3"><i class="fas fa-question-circle text-gray-500 cursor-pointer mr-5" @click="showHelp('repeatNumbers')"></i>Repetir Números:</label>
                     <input v-model="repeatNumbers" type="checkbox" id="repeat" class="ml-2" />
                 </div>
-                <button @click="drawNumbers" class="bg-blue-500 text-white px-4 py-2 w-full">Sortear Números</button>
+                <button @click="drawNumbers" class="bg-blue-500 text-white px-4 py-2 w-full"><i class="fas fa-dice mr-2"></i>Sortear Números</button>
                 <div class="mt-4">
                     <h3 class="text-md font-semibold mb-2">Histórico de Números Sorteados:</h3>
                     <ul class="list-disc pl-4">
@@ -60,14 +66,15 @@
             <div class="mt-8">
                 <h2 class="text-lg font-semibold mb-4 text-center">Sorteio por Nomes</h2>
                 <div class="mb-4">
-                    <label for="names" class="block">Inserir Nomes (separados por vírgula):</label>
+                    <label for="names" class="block"> <i class="fas fa-question-circle text-gray-500 cursor-pointer mr-5" @click="showHelp('namesInput')"></i>Inserir Nomes (separados por vírgula):</label>
                     <textarea v-model="namesInput" id="names" class="border p-2 w-full" rows="3"></textarea>
+
                 </div>
                 <div class="flex items-center mb-4">
-                    <label for="repeatNames" class="mr-2">Repetir Nomes:</label>
+                    <label for="repeatNames" class="mr-2"><i class="fas fa-question-circle text-gray-500 cursor-pointer mr-5" @click="showHelp('repeatNames')"></i>Repetir Nomes:</label>
                     <input v-model="repeatNames" type="checkbox" id="repeatNames" class="ml-2" />
                 </div>
-                <button @click="drawNames" class="bg-blue-500 text-white px-4 py-2 w-full">Sortear Nomes</button>
+                <button @click="drawNames" class="bg-blue-500 text-white px-4 py-2 w-full"><i class="fas fa-dice mr-2"></i>Sortear Nomes</button>
                 <div class="mt-4">
                     <h3 class="text-md font-semibold mb-2">Histórico de Nomes Sorteados:</h3>
                     <ul class="list-disc pl-4">
@@ -78,7 +85,13 @@
         </div>
 
         <!-- Resetar Sorteios -->
-        <button v-if="step === 2" @click="resetDraws" class="bg-red-500 text-white px-4 py-2 mt-8 w-full">Resetar Sorteios</button>
+
+        <button v-if="step === 2" @click="resetDraws" class="bg-red-500 text-white px-4 py-2 w-full mt-4"><i class="fas fa-undo-alt mr-2"></i>Resetar Sorteios</button>
+        <button v-if="step === 2" @click="goToHome" class="bg-gray-500 text-white px-4 py-2 w-full mt-2"><i class="fas fa-home mr-2"></i>Voltar à Página Inicial</button>
+        <!-- Rodapé -->
+        <footer class="mt-8">
+            <p class="text-sm text-gray-500 text-center">&copy; 2023 Sistema de Sorteio Online. Todos os direitos reservados.</p>
+        </footer>
     </div>
 
     <script>
@@ -203,6 +216,57 @@
                         title: 'Sorteios Resetados',
                         text: 'Os sorteios foram resetados com sucesso.',
                         icon: 'success',
+                    });
+                },
+                goToHome() {
+                    this.step = 1; // Voltar à página inicial
+                    this.selectedType = null; // Resetar o tipo de sorteio
+                    this.quantity = 1; // Resetar a quantidade
+                    this.minNumber = 1; // Resetar número mínimo
+                    this.maxNumber = 100; // Resetar número máximo
+                    this.repeatNumbers = false; // Resetar opção de repetir números
+                    this.namesInput = ''; // Resetar entrada de nomes
+                    this.repeatNames = false; // Resetar opção de repetir nomes
+                    this.historyNumbers = []; // Limpar histórico de números
+                    this.historyNames = []; // Limpar histórico de nomes
+                },
+                showHelp(field) {
+                    let helpText = '';
+
+                    // Adicione textos informativos para cada campo conforme necessário
+                    switch (field) {
+                        case 'quantity':
+                            helpText = 'Informe a quantidade de números a serem sorteados.';
+                            break;
+                        case 'minNumber':
+                            helpText = 'Informe o número mínimo para o sorteio.';
+                            break;
+                        case 'maxNumber':
+                            helpText = 'Informe o número máximo para o sorteio.';
+                            break;
+                        case 'repeatNumbers':
+                            helpText = 'Marque esta opção se deseja permitir repetição de números no sorteio.';
+                            break;
+                        case 'namesInput':
+                            helpText = 'Digite os nomes dos participantes separados por vírgula.';
+                            break;
+                        case 'repeatNames':
+                            helpText = 'Marque esta opção se deseja permitir repetição de nomes no sorteio.';
+                            break;
+                            // Adicione outros casos conforme necessário
+
+                        default:
+                            helpText = 'Texto de ajuda genérico.';
+                            break;
+                    }
+
+                    // Exibir alert temporizado com o texto informativo
+                    Swal.fire({
+                        title: 'Ajuda',
+                        text: helpText,
+                        icon: 'info',
+                        timer: 3000,
+                        timerProgressBar: true,
                     });
                 },
             },
