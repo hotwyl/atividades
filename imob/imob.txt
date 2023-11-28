@@ -1,0 +1,105 @@
+calculos imobiliario imobiliario
+calculo subisidio governo
+calculo financiamento imovel
+calculo documentação
+
+calculo aluguel
+calculo venda
+
+
+
+Cálculo de juros e amortização de empréstimos hipotecários: Isso é feito para determinar quanto um mutuário pagará mensalmente para reembolsar um empréstimo hipotecário, levando em consideração os juros e o principal do empréstimo.
+
+Cálculo do retorno do investimento imobiliário (ROI): Isso ajuda os investidores a avaliar a lucratividade de um investimento imobiliário. O ROI é calculado como o lucro líquido obtido com o investimento, dividido pelo custo total do investimento.
+
+Cálculo de renda potencial bruta: Este cálculo é importante para proprietários e investidores imobiliários, pois mostra a receita total que uma propriedade pode gerar em um determinado período de tempo, sem levar em consideração as despesas.
+
+Cálculo do valor justo de mercado: Avaliadores imobiliários usam várias abordagens, como a abordagem comparativa de mercado, a abordagem de custo e a abordagem de renda para determinar o valor justo de mercado de uma propriedade.
+
+Cálculo de impostos imobiliários: Proprietários e investidores imobiliários precisam calcular os impostos a serem pagos com base no valor avaliado da propriedade e nas taxas de imposto aplicáveis.
+
+Cálculo de custos de manutenção e reparo: Isso é essencial para os proprietários, pois ajuda a estimar os custos contínuos associados à manutenção e reparo da propriedade.
+
+Cálculo de Pagamentos Mensais de Hipoteca: Isso envolve calcular os pagamentos mensais necessários para reembolsar um empréstimo hipotecário. É influenciado pelo valor do empréstimo, taxa de juros, termo do empréstimo e tipo de taxa de juros (fixa ou variável).
+
+Cálculo de Juros Hipotecários: Determina a quantia total de juros que você pagará durante o prazo do empréstimo. Isso é crucial para entender o custo total do financiamento.
+
+Cálculo de Amortização de Empréstimos Hipotecários: Isso ajuda a entender como os pagamentos mensais são divididos entre o pagamento do principal e dos juros. Inicialmente, a maior parte do pagamento é direcionada para os juros, enquanto a parcela do principal aumenta com o tempo.
+
+Cálculo de Valor Total Pago: Isso envolve calcular o valor total que você pagará ao longo do prazo do empréstimo, incluindo o principal e os juros.
+
+Cálculo de Valor de Revenda Potencial: Este cálculo ajuda a determinar o valor futuro do imóvel, considerando a valorização ou depreciação esperada ao longo do tempo.
+
+Cálculo de Taxas de Fechamento e Custos Adicionais: Inclui o cálculo das taxas de fechamento e outros custos associados à obtenção do empréstimo, como taxas de avaliação, taxas de inspeção, taxas legais e outras despesas administrativas.
+
+
+
+
+
+crie uma novo arquivo php com funções para callcular valor do imovel, calculo valor de aluguel, calculo valor de venda. Em calculo de venda incluir taxa de corretagem para o corretor e custo de documentação. Em Aluguel colocar taxa de administração, e demais taxas se necessário para compor valor do aluguel
+
+
+
+Os calculos devem ser efetuados de acordo com os tipos de imovel:
+
+Residencial: Projetado para habitação, incluindo casas unifamiliares, apartamentos, condomínios, casas geminadas, entre outros.
+
+Comercial: Destinado a fins comerciais, como escritórios, lojas, shoppings, hotéis, restaurantes e edifícios industriais.
+
+Industrial: Projetado para atividades de produção, armazenamento e distribuição, incluindo armazéns, fábricas e instalações de fabricação.
+
+Terrenos: Áreas de terra que podem ser desenvolvidas para diversos fins, como construção residencial, comercial ou industrial.
+
+Rural: Inclui propriedades agrícolas, fazendas, terrenos rurais e propriedades destinadas a atividades relacionadas à agricultura ou agropecuária.
+
+Imóveis de Temporada: Propriedades utilizadas sazonalmente para férias e lazer, como casas de praia, casas de campo e chalés de montanha.
+
+Imóveis Compartilhados: Inclui condomínios de tempo compartilhado e propriedades compartilhadas, onde múltiplos proprietários possuem uma parte do imóvel.
+
+Imóveis Comerciais e Residenciais Mistas: Propriedades que combinam espaços comerciais e residenciais em um único local, como prédios com lojas no térreo e apartamentos acima.
+
+
+
+Os calculos de venda de imovel deve considerar em seu calculo as taxas a seguir:
+
+Imposto sobre a transmissão de bens imóveis (ITBI): Um imposto municipal que incide sobre a transferência de propriedade. A alíquota do ITBI varia de acordo com a localização do imóvel.
+
+Corretagem imobiliária: Taxa paga ao corretor imobiliário pela intermediação na venda do imóvel. Geralmente é um percentual do valor total da venda.
+
+Custos de documentação: Inclui taxas relacionadas à documentação legal necessária para transferir a propriedade, como certidões, registros e escrituras.
+
+Taxa de registro: Taxa paga ao cartório de registro de imóveis para registrar a transferência da propriedade.
+
+Imposto de Renda sobre ganho de capital: Se o valor de venda for maior do que o valor de compra, o vendedor pode ser obrigado a pagar imposto de renda sobre o ganho de capital.
+
+Taxas de quitação de financiamento: Se o imóvel estiver sujeito a um empréstimo, o vendedor terá que pagar taxas de quitação antecipada ao banco.
+
+Taxas de avaliação e inspeção: Em alguns casos, podem ser necessárias avaliações e inspeções adicionais durante o processo de venda.
+
+Taxas legais: Se um advogado for contratado para ajudar com o processo de venda, as taxas legais serão aplicáveis.
+
+
+
+Os calculos de aluguel de imovel deve considerar em seu calculo as taxas a seguir:
+
+Custos de agência imobiliária: Taxa paga à agência imobiliária para facilitar a transação de aluguel. Pode ser uma porcentagem do valor do aluguel mensal ou uma taxa fixa.
+
+Depósito de segurança: Uma quantia paga pelo locatário ao locador no início do contrato de locação. O depósito é geralmente reembolsável e serve como garantia contra danos ou inadimplência.
+
+Taxas de administração imobiliária: Se o proprietário optar por ter uma empresa de administração imobiliária para lidar com o processo de aluguel, pode haver taxas associadas a esse serviço.
+
+Custos de documentação: Taxas associadas à elaboração do contrato de locação, como custos de registro e autenticação de documentos.
+
+Custos de manutenção e reparo: Se o locatário for responsável pela manutenção regular do imóvel, ele deve arcar com os custos associados a essas atividades.
+
+Impostos municipais: Alguns locais podem impor impostos específicos sobre a locação de imóveis residenciais ou comerciais.
+
+Seguro de aluguel: Alguns locadores podem exigir que o locatário pague por um seguro de aluguel que cubra danos acidentais ou inadimplência.
+
+Custos de mudança: Isso inclui quaisquer despesas relacionadas à mudança para o novo imóvel, como custos de transporte e despesas de embalagem.
+
+
+0.5
+0.7
+0.9
+

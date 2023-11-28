@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Bio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+            padding: 0 3%;
+            margin: 0 auto;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo img {
+            width: 120px;
+            height: 120px;
+            background-size: 100% 100%;
+            background-position: center;
+            border-radius: 50%;
+        }
+
+        .descricao {
+            text-align: center;
+        }
+
+        .descricao h2, .link h2 {
+            font-size: 28px;
+            color: #0077ff;
+        }
+
+        .descricao p {
+            font-size: 18px;
+            color: #c3c6c9;
+            padding: 15px 0;
+            margin-bottom: 10px;
+        }
+
+        .link a, .link h2 {
+            margin-bottom: 10px;
+            text-align: center;
+            display: block;
+        }
+
+        .link button {
+            cursor: pointer;
+            width: 50%;
+            height: 40px;
+            font-size: 20px;
+            background: #bcc1c4;
+            border: 0;
+            border-radius: 25px;
+        }
+
+        .link a:hover button {
+            transition: 1s;
+            background: #323333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body id="app">
+
+    <main class="container">
+
+        <section class="card rounded-5 my-5">
+
+            <img :src=thumbnail.url class="card-img-top img-fluid" :alt=thumbnail.alt>
+
+            <div class="card-body pb-5 px-5 row">
+
+                <div class="logo col-sm-3">
+                    <figure class="figure">
+                        <img :src=avatar.url class="figure-img img-fluid rounded-circle" :alt=avatar.alt>
+                        <figcaption class="figure-caption text-center">{{nome}} </figcaption>
+                    </figure>
+                </div>
+    
+                <div class="descricao col-sm-9">
+                    <p> {{descricao}} </p>
+                </div>
+    
+                <div class="link col-md-12">
+                    <h2> Meus links </h2> <br>
+                    <a :href=link.url target="_blank" rel="noopener noreferrer" v-for="(link, index) in links" :key="index"><button>{{link.titulo}}</button></a>
+                </div>
+
+            </div>
+            
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const { createApp, ref } = Vue
+      
+        createApp({
+            data() {
+                return {
+                    thumbnail: {
+                        url:'https://picsum.photos/960/240/?blur',
+                        alt: '...'
+                    },
+                    avatar: {
+                        url:'https://i.pravatar.cc/500',
+                        alt: '...'
+                    },
+                    nome: 'Nome Completo',
+                    descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, in perspiciatis quia facere quae commodi repudiandae. Minima adipisci sint corporis ratione illo, alias est optio possimus voluptatem sunt? Quae, corporis.',
+                    links: [
+                        {titulo: 'Link 1', url: '#'},
+                        {titulo: 'Link 2', url: '#'},
+                        {titulo: 'Link 3', url: '#'},
+                        {titulo: 'Link 4', url: '#'},
+                        {titulo: 'Link 5', url: '#'},
+                        {titulo: 'Link 6', url: '#'},
+                        {titulo: 'Link 7', url: '#'},
+                        {titulo: 'Link 8', url: '#'},
+                        {titulo: 'Link 9', url: '#'}
+                    ]
+                }
+            }
+        }).mount('#app')
+      </script>
+
+</body>
+
+</html>

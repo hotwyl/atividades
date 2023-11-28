@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Catalog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #app {
+            flex: 1;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="app">
+        <div class="bg-blue-500 p-4 text-white">
+            <ul class="flex justify-center space-x-4">
+                <li><a href="#" class="hover:underline">Início</a></li>
+                <li><a href="#" class="hover:underline">Sobre</a></li>
+                <li><a href="#" class="hover:underline">Contato</a></li>
+            </ul>
+        </div>
+        <div class="p-6">
+            <h1 class="text-3xl font-bold text-center mb-6 text-blue-700">Catálogo de Vídeos</h1>
+            <div v-if="!selectedVideo">
+                <div class="text-center mb-6">
+                    <label for="category" class="text-lg font-semibold mr-2">Selecione uma categoria:</label>
+                    <select v-model="selectedCategory" @change="fetchVideos" id="category" class="p-2 rounded">
+                        <option v-for="(videos, category) in videoCategories" :value="videos" :key="category">{{ videos }}</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-auto">
+                    <div v-for="(video, index) in filteredVideos" :key="index" class="p-4 bg-white rounded-lg shadow-md mb-4">
+                        <h2 class="text-lg font-semibold mb-2 text-blue-700">{{ video.title }}</h2>
+                        <p class="text-gray-700">{{ video.description }}</p>
+                        <button @click="selectVideo(video)" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Assistir Agora</button>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="text-center">
+                <button @click="backToCatalog" class="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retornar ao Catálogo</button>
+                <h2 class="text-2xl font-bold mb-2 text-blue-700">{{ selectedVideo.title }}</h2>
+                <p class="text-gray-500 mb-4">{{ selectedVideo.description }}</p>
+                <div class="video-container mx-auto mb-4" style="max-width: 560px;">
+                    <iframe width="100%" :src="selectedVideo.link" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <button @click="backToCatalog" class="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retornar ao Catálogo</button>
+            </div>
+        </div>
+        <div class="footer bg-gray-800 text-white text-center p-4 mt-6">
+            © 2023 Catálogo de Vídeos - Todos os direitos reservados
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                videos: [],
+                selectedVideo: null,
+                selectedCategory: 'outros',
+                videoCategories: null
+            },
+            mounted() {
+                this.fetchVideos();
+                this.videoCategories = this.getCategories();
+            },
+            computed: {
+                filteredVideos() {
+                    return this.videos.filter(video => video.category === this.selectedCategory);
+                },
+                categoryList() {
+                    return Object.keys(this.videoCategories);
+                }
+            },
+            methods: {
+                fetchVideos() {
+                    let arrVideos = [
+                                {
+                                    "title": "O Universo: Documentário Completo em HD",
+                                    "category": "ciencia",
+                                    "description": "",
+                                    "link": "https://www.youtube.com/watch?v=xxxxxxx"
+                                },
+                                {
+                                    "title": "A Teoria de Tudo - O Grande Projeto de Stephen Hawking",
+                                    "category": "ciencia",
+                                    "description": "",
+                                    "link": "https://www.youtube.com/watch?v=yyyyyyy"
+                                },
+                                {
+                                    "title": "A Era da Inteligência Artificial",
+                                    "description": "",
+                                    "category": "tecnologia",
+                                    "link": "https://www.youtube.com/watch?v=zzzzzzz"
+                                },
+                                {
+                                    "title": "Elon Musk: Como Será a Vida em Marte",
+                                    "description": "",
+                                    "category": "tecnologia",
+                                    "link": "https://www.youtube.com/watch?v=wwwwwww"
+                                },
+                                {
+                                    "title": "História da Arte em 10 Minutos",
+                                    "description": "",
+                                    "category": "arte",
+                                    "link": "https://www.youtube.com/watch?v=vvvvvvv"
+                                },
+                                {
+                                    "title": "O Renascimento: Uma Jornada pela Arte e Cultura",
+                                    "description": "",
+                                    "category": "arte",
+                                    "link": "https://www.youtube.com/watch?v=uuuuuuu"
+                                },
+                                {
+                                    "title": "Criando landing page completa do ZERO - part 01 (HTML, CSS, SASS)",
+                                    "description": "This is the first video.",
+                                    "category": "outros",
+                                    "link": "https://youtu.be/Fzc_dnqD-V0?si=NF_NpEsr5r6jNzmt"
+                                },
+                                {
+                                    "title": "Criando landing page completa do ZERO - part 02 (HTML, CSS, SASS)",
+                                    "description": "This is the second video.",
+                                    "category": "outros",
+                                    "link": "https://www.youtube.com/watch?v=qeF7ZN5TegY"
+                                }
+                            ]
+
+                        this.videos = arrVideos
+                },
+                selectVideo(video) {
+                    this.selectedVideo = video;
+                },
+                backToCatalog() {
+                    this.selectedVideo = null;
+                },
+                getCategories() {
+                    let list = Object.values(this.videos);
+                    let arr = [];
+
+                    list.forEach(element => { arr.push(element.category) });
+
+                    return arr.filter((item, index) => arr.indexOf(item) === index);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

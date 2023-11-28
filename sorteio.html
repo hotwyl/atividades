@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Sorteio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+    <div id="app" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+
+        <!-- Parte 1: Escolher o Tipo de Sorteio -->
+        <div v-if="step === 1">
+            <h2 class="text-lg font-semibold mb-4 text-center">Escolha o Tipo de Sorteio</h2>
+            <button @click="selectType('number')" class="bg-blue-500 text-white px-4 py-2 w-full mb-4">Sorteio por Números</button>
+            <button @click="selectType('name')" class="bg-blue-500 text-white px-4 py-2 w-full">Sorteio por Nomes</button>
+        </div>
+
+        <!-- Parte 2: Sorteio por Números -->
+        <div v-if="step === 2 && selectedType === 'number'">
+            <!-- Sorteio por Números -->
+            <div>
+                <h2 class="text-lg font-semibold mb-4 text-center">Sorteio por Números</h2>
+                <div class="flex items-center mb-4">
+                    <label for="quantity" class="mr-2">Quantidade de Números:</label>
+                    <input v-model="quantity" type="number" id="quantity" class="border p-2 w-16 text-center" />
+                </div>
+                <div class="flex items-center mb-4">
+                    <label for="minNumber" class="mr-2">Número Mínimo:</label>
+                    <input v-model="minNumber" type="number" id="minNumber" class="border p-2 w-16 text-center" />
+                </div>
+                <div class="flex items-center mb-4">
+                    <label for="maxNumber" class="mr-2">Número Máximo:</label>
+                    <input v-model="maxNumber" type="number" id="maxNumber" class="border p-2 w-16 text-center" />
+                </div>
+                <div class="flex items-center mb-4">
+                    <label for="repeat" class="mr-2">Repetir Números:</label>
+                    <input v-model="repeatNumbers" type="checkbox" id="repeat" class="ml-2" />
+                </div>
+                <button @click="drawNumbers" class="bg-blue-500 text-white px-4 py-2 w-full">Sortear Números</button>
+                <div class="mt-4">
+                    <h3 class="text-md font-semibold mb-2">Histórico de Números Sorteados:</h3>
+                    <ul class="list-disc pl-4">
+                        <li v-for="number in historyNumbers">{{ number }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parte 3: Sorteio por Nomes -->
+        <div v-if="step === 2 && selectedType === 'name'">
+            <!-- Restante do código para sorteio por nomes -->
+
+            <!-- Sorteio por Nomes -->
+            <div class="mt-8">
+                <h2 class="text-lg font-semibold mb-4 text-center">Sorteio por Nomes</h2>
+                <div class="mb-4">
+                    <label for="names" class="block">Inserir Nomes (separados por vírgula):</label>
+                    <textarea v-model="namesInput" id="names" class="border p-2 w-full" rows="3"></textarea>
+                </div>
+                <div class="flex items-center mb-4">
+                    <label for="repeatNames" class="mr-2">Repetir Nomes:</label>
+                    <input v-model="repeatNames" type="checkbox" id="repeatNames" class="ml-2" />
+                </div>
+                <button @click="drawNames" class="bg-blue-500 text-white px-4 py-2 w-full">Sortear Nomes</button>
+                <div class="mt-4">
+                    <h3 class="text-md font-semibold mb-2">Histórico de Nomes Sorteados:</h3>
+                    <ul class="list-disc pl-4">
+                        <li v-for="name in historyNames">{{ name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resetar Sorteios -->
+        <button v-if="step === 2" @click="resetDraws" class="bg-red-500 text-white px-4 py-2 mt-8 w-full">Resetar Sorteios</button>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    step: 1,
+                    selectedType: null,
+                    quantity: 1,
+                    minNumber: 1,
+                    maxNumber: 100,
+                    repeatNumbers: false,
+                    namesInput: '',
+                    repeatNames: false,
+                    historyNumbers: [],
+                    historyNames: [],
+                };
+            },
+            methods: {
+                selectType(type) {
+                    this.selectedType = type;
+                    this.step = 2;
+                },
+                drawNumbers() {
+                    // Implemente a lógica de sorteio por números aqui
+
+                    // Verificar se a quantidade de números é válida
+                    if (this.quantity <= 0) {
+                        Swal.fire({
+                            title: 'Quantidade Inválida',
+                            text: 'Por favor, insira uma quantidade válida de números.',
+                            icon: 'warning',
+                        });
+                        return;
+                    }
+
+                    // Verificar se o range é válido
+                    if (this.minNumber >= this.maxNumber) {
+                        Swal.fire({
+                            title: 'Range Inválido',
+                            text: 'O número mínimo deve ser menor que o número máximo.',
+                            icon: 'warning',
+                        });
+                        return;
+                    }
+
+                    // Limpar histórico de números anteriores
+                    this.historyNumbers = [];
+
+                    // Lógica de sorteio por números dentro do range definido
+                    for (let i = 0; i < this.quantity; i++) {
+                        let randomNumber;
+
+                        // Gerar número aleatório dentro do range com ou sem repetição
+                        do {
+                            randomNumber = Math.floor(Math.random() * (this.maxNumber - this.minNumber + 1)) + this.minNumber;
+                        } while (!this.repeatNumbers && this.historyNumbers.includes(randomNumber));
+
+                        // Adicionar número sorteado ao histórico
+                        this.historyNumbers.push(randomNumber);
+                    }
+
+                    // Informar ao usuário os números sorteados
+                    Swal.fire({
+                        title: 'Números Sorteados',
+                        html: `<h2>${this.historyNumbers.join(', ')}</h2>`,
+                        icon: 'success',
+                    });
+                },
+                drawNames() {
+                    // Implemente a lógica de sorteio por nomes aqui
+
+                    // Verificar se a entrada de nomes é válida
+                    const namesArray = this.namesInput.split(',').map(name => name.trim());
+                    if (namesArray.length === 0 || (namesArray.length === 1 && namesArray[0] === '')) {
+                        Swal.fire({
+                            title: 'Entrada Inválida',
+                            text: 'Por favor, insira pelo menos um nome para o sorteio.',
+                            icon: 'warning',
+                        });
+                        return;
+                    }
+
+                    // Limpar histórico de nomes anteriores
+                    this.historyNames = [];
+
+                    // Lógica de sorteio por nomes
+                    for (let i = 0; i < this.quantity; i++) {
+                        let randomIndex;
+
+                        // Gerar índice aleatório com ou sem repetição
+                        do {
+                            randomIndex = Math.floor(Math.random() * namesArray.length);
+                        } while (!this.repeatNames && this.historyNames.includes(namesArray[randomIndex]));
+
+                        // Adicionar nome sorteado ao histórico
+                        this.historyNames.push(namesArray[randomIndex]);
+                    }
+
+                    // Informar ao usuário os nomes sorteados
+                    Swal.fire({
+                        title: 'Nomes Sorteados',
+                        html: `<p>${this.historyNames.join(', ')}</p>`,
+                        icon: 'success',
+                    });
+                },
+                resetDraws() {
+                    // Implemente a lógica de resetar sorteios aqui
+
+                    // Limpar histórico de números se o tipo de sorteio for por números
+                    if (this.selectedType === 'number') {
+                        this.historyNumbers = [];
+                    }
+
+                    // Limpar histórico de nomes se o tipo de sorteio for por nomes
+                    if (this.selectedType === 'name') {
+                        this.historyNames = [];
+                    }
+
+                    // Informar ao usuário que os sorteios foram resetados
+                    Swal.fire({
+                        title: 'Sorteios Resetados',
+                        text: 'Os sorteios foram resetados com sucesso.',
+                        icon: 'success',
+                    });
+                },
+            },
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+{
+    'questions': [
+        {
+            'title': 'Preferência por Atividades',
+            'description': 'Qual é a sua preferência de atividade?',
+            'options': [
+                { 'text': 'Gosto de trabalhar com as mãos em projetos práticos.', 'value': 2 },
+                { 'text': 'Prefiro trabalhar com números e dados.', 'value': 3 },
+                { 'text': 'Gosto de trabalhar em equipe para resolver problemas.', 'value': 1 },
+                { te'xt: 'Tenho interesse em ajudar pessoas em situações difíceis.', 'value': 4 }
+            ]
+        },
+        {
+            title: 'Interesses',
+            description: 'Qual área te atrai mais?',
+            options: [
+                { text: 'Ciências e exploração espacial.', value: 3 },
+                { text: 'Artes visuais e criatividade.', value: 4 },
+                { text: 'Empreendedorismo e negócios.', value: 2 },
+                { text: 'Saúde e bem-estar.', value: 1 }
+            ]
+        },
+        {
+            title: 'Habilidades Pessoais',
+            description: 'Qual é a sua habilidade mais forte?',
+            options: [
+                { text: 'Comunicação verbal.', value: 2 },
+                { text: 'Habilidade em análise de dados.', value: 3 },
+                { text: 'Organização e planejamento.', value: 4 },
+                { text: 'Habilidade manual e destreza.', value: 1 }
+            ]
+        },
+        {
+            title: '',
+            description: 'O que te motiva no trabalho?',
+            options: [
+                { text: 'Contribuir para o bem-estar das pessoas.', value: 4 },
+                { text: 'Alcançar metas financeiras.', value: 2 },
+                { text: 'Explorar novas ideias e possibilidades.', value: 3 },
+                { text: 'Resolver desafios complexos.', value: 1 }
+            ]
+        },
+        {
+            title: '',
+            description: 'Qual é o seu interesse na escola?',
+            options: [
+                { text: 'Participar de atividades artísticas.', value: 4 },
+                { text: 'Aprender sobre ciências naturais.', value: 3 },
+                { text: 'Desenvolver habilidades sociais.', value: 2 },
+                { text: 'Destacar-se em matérias técnicas.', value: 1 }
+            ]
+        },
+        {
+            title: '',
+            description: 'Como você lida com desafios?',
+            options: [
+                { text: 'Gosto de resolver problemas em equipe.', value: 3 },
+                { text: 'Prefiro enfrentar desafios sozinho.', value: 2 },
+                { text: 'Procuro ajuda e orientação de especialistas.', value: 1 },
+                { text: 'Encaro desafios como oportunidades de crescimento.', value: 4 }
+            ]
+        },
+        {
+            title: '',
+            description: 'Em que tipo de ambiente você se sente mais confortável?',
+            options: [
+                { text: 'Ambiente calmo e organizado.', value: 2 },
+                { text: 'Ambiente agitado e dinâmico.', value: 3 },
+                { text: 'Ambiente com muita interação social.', value: 1 },
+                { text: 'Ambiente criativo e inovador.', value: 4 }
+            ]
+        },
+        {
+            title: '',
+            description: 'O que você gosta de fazer nas horas vagas?',
+            options: [
+                { text: 'Explorar novos lugares.', value: 3 },
+                { text: 'Ler livros ou assistir a filmes.', value: 2 },
+                { text: 'Passar tempo com amigos e familiares.', value: 1 },
+                { text: 'Praticar atividades físicas ou esportes.', value: 4 }
+            ]
+        },
+        {
+            title: '',
+            description: 'Qual é a sua abordagem ao aprender algo novo?',
+            options: [
+                { text: 'Eu gosto de aprender fazendo.', value: 2 },
+                { text: 'Eu prefiro aprender através da teoria e estudos.', value: 3 },
+                { text: 'Eu gosto de aprender com exemplos e demonstrações.', value: 4 },
+                { text: 'Eu aprendo melhor quando ensino aos outros.', value: 1 }
+            ]
+        },
+        {
+            title: '',
+            description: 'Como você se sente trabalhando com tecnologia?',
+            options: [
+                { text: 'Eu adoro explorar novas tecnologias.', value: 3 },
+                { text: 'Eu me sinto confiante e confortável com tecnologia.', value: 4 },
+                { text: 'Eu prefiro não depender muito de tecnologia.', value: 1 },
+                { text: 'Eu me sinto um pouco inseguro, mas estou disposto a aprender.', value: 2 }
+            ]
+        },
+        {
+            title: 'Atitude em relação ao Estudo',
+            description: 'Como você encara o estudo e aprendizado?',
+            options: [
+                { text: 'Eu sou curioso(a) e gosto de aprender sobre diversos assuntos.', value: 3 },
+                { text: 'Eu me interesso por estudos que me ajudem a alcançar objetivos específicos.', value: 2 },
+                { text: 'Eu vejo o estudo como um caminho para adquirir habilidades práticas.', value: 1 },
+                { text: 'Eu valorizo muito o estudo como forma de desenvolvimento pessoal.', value: 4 }
+            ]
+        },
+        {
+            title: 'Estilo de Comunicação',
+            description: 'Qual é o seu estilo de comunicação?',
+            options: [
+                { text: 'Eu gosto de expressar minhas ideias de maneira criativa e visual.', value: 4 },
+                { text: 'Eu me comunico de forma objetiva e direta.', value: 2 },
+                { text: 'Eu escuto atentamente os outros e procuro entender seus pontos de vista.', value: 3 },
+                { text: 'Eu uso histórias e exemplos para me comunicar com clareza.', value: 1 }
+            ]
+        },
+        {
+            title: 'Ambiente de Trabalho',
+            description: 'Como você se imagina em um ambiente de trabalho?',
+            options: [
+                { text: 'Gosto de ambientes dinâmicos e desafiadores.', value: 3 },
+                { text: 'Preferiria um ambiente calmo e organizado.', value: 2 },
+                { text: 'Valorizo a interação social e a colaboração.', value: 1 },
+                { text: 'Aprecio um ambiente criativo e inovador.', value: 4 }
+            ]
+        },
+        {
+            title: 'Lidar com Pressão',
+            description: 'Como você reage sob pressão?',
+            options: [
+                { text: 'Eu mantenho a calma e busco soluções práticas.', value: 2 },
+                { text: 'Eu busco o apoio de colegas e amigos para lidar com a pressão.', value: 1 },
+                { text: 'Eu vejo a pressão como uma oportunidade de me superar e crescer.', value: 4 },
+                { text: 'Eu sigo um plano pré-estabelecido para lidar com situações de pressão.', value: 3 }
+            ]
+        },
+        {
+            title: 'Estilo de Aprendizado',
+            description: 'Como você prefere aprender?',
+            options: [
+                { text: 'Através de práticas e experimentação.', value: 2 },
+                { text: 'Seguindo um roteiro de estudos estruturado.', value: 3 },
+                { text: 'Através de discussões e interações com outras pessoas.', value: 1 },
+                { text: 'Explorando várias fontes de informações e perspectivas.', value: 4 }
+            ]
+        },
+        {
+            title: 'Criatividade e Inovação',
+            description: 'Como você se sente em relação à criatividade e inovação?',
+            options: [
+                { text: 'Adoro pensar fora da caixa e buscar soluções originais.', value: 4 },
+                { text: 'Prefiro seguir métodos e abordagens convencionais.', value: 2 },
+                { text: 'Gosto de colaborar com outras pessoas para gerar ideias inovadoras.', value: 1 },
+                { text: 'Eu me sinto confortável em experimentar coisas novas.', value: 3 }
+            ]
+        },
+        {
+            title: 'Planejamento de Carreira',
+            description: 'Como você aborda o planejamento da sua carreira?',
+            options: [
+                { text: 'Eu tenho metas claras e estou sempre focado(a) nelas.', value: 3 },
+                { text: 'Eu gosto de explorar diferentes opções antes de tomar decisões.', value: 4 },
+                { text: 'Eu valorizo a estabilidade e escolho carreiras tradicionais.', value: 2 },
+                { text: 'Eu me adapto às oportunidades que surgem no momento.', value: 1 }
+            ]
+        },
+        {
+            title: 'Colaboração',
+            description: 'Como você se comporta em situações de colaboração?',
+            options: [
+                { text: 'Eu sou ativo(a) na contribuição de ideias e soluções.', value: 1 },
+                { text: 'Eu me envolvo se vejo que minha contribuição é essencial.', value: 2 },
+                { text: 'Eu gosto de trabalhar em equipe e valorizo a diversidade de opiniões.', value: 4 },
+                { text: 'Eu prefiro trabalhar de forma independente na maioria das vezes.', value: 3 }
+            ]
+        },
+        {
+            title: 'Relação com a Tecnologia',
+            description: 'Como você se relaciona com a tecnologia no seu dia a dia?',
+            options: [
+                { text: 'Eu sou entusiasta e estou sempre atualizado(a) com as últimas novidades tecnológicas.', value: 4 },
+                { text: 'Eu uso a tecnologia quando necessário, mas não sou muito aficionado(a).', value: 2 },
+                { text: 'Eu vejo a tecnologia como uma ferramenta útil para melhorar a eficiência.', value: 3 },
+                { text: 'Eu tento evitar o uso excessivo de tecnologia e prefiro abordagens tradicionais.', value: 1 }
+            ]
+        },
+        {
+            title: 'Conexão Social',
+            description: 'Como você se relaciona com outras pessoas?',
+            options: [
+                { text: 'Eu me sinto à vontade em fazer novas amizades e interagir socialmente.', value: 1 },
+                { text: 'Eu valorizo as amizades próximas e os relacionamentos duradouros.', value: 2 },
+                { text: 'Eu prefiro interações sociais mais profundas em pequenos grupos.', value: 3 },
+                { text: 'Eu gosto de conhecer pessoas de diferentes culturas e origens.', value: 4 }
+            ]
+        },
+    
+        // Outras questões
+    ]  
+}

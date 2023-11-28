@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API de Consulta de Veículos"
+  },
+  "servers": [
+    {
+      "url": "loteria-v3.php"
+    }
+  ],
+  "paths": {
+    "?oper=lf1": {
+      "get": {
+        "summary": "Consulta de Veículos",
+        "description": "Consulta informações sobre veículos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Requisição Success"
+          },
+          "400": {
+            "description": "Requisição inválida"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "?oper=lf2": {
+      "get": {
+        "summary": "Consulta de Veículos",
+        "description": "Consulta informações sobre veículos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Requisição Success"
+          },
+          "400": {
+            "description": "Requisição inválida"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "?oper=lm1": {
+      "get": {
+        "summary": "Consulta de Veículos",
+        "description": "Consulta informações sobre veículos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Requisição Success"
+          },
+          "400": {
+            "description": "Requisição inválida"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "?oper=lm2": {
+      "get": {
+        "summary": "Consulta de Veículos",
+        "description": "Consulta informações sobre veículos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Requisição Success"
+          },
+          "400": {
+            "description": "Requisição inválida"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    }
+  }
+}

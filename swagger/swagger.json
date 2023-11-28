@@ -1,0 +1,20 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Minha API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/api/endpoint": {
+        "get": {
+          "summary": "Recupera algo",
+          "responses": {
+            "200": {
+              "description": "Sucesso"
+            }
+          }
+        }
+      }
+    }
+  }
+  

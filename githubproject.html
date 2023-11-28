@@ -1,0 +1,184 @@
+<!-- https://www.youtube.com/watch?v=fmhz4nqGK4E -->
+<!-- https://youtu.be/7x3YrAiu5HI -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub User Data</title>
+  <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        background-color: #1c1a1d;
+        color: #e5e5e5;
+    }
+
+    #app {
+        min-height: 100vh;
+        max-width: 75rem;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .bio img {
+        border: 1px solid #e5e5e5;
+        border-radius: 999px;
+        display: block;
+        margin: 1rem auto;
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .bio h1, h2 {
+        color: #f64348;
+        margin: 1rem auto .25rem;
+    }
+
+    .bio h3 {
+        margin: 1rem auto .25rem;
+    }
+
+    .bio span{
+        display: block;
+        margin: 1rem auto;
+    }
+
+    .bio input, button {
+        max-width: 20rem;
+        padding: .5rem;
+    }
+
+    .bio input {
+        background-color: #1c1a1d;
+        border: 1px solid #f64348;
+        border-radius: .25rem;
+        color: #e5e5e5;
+        margin: 1rem 1rem 1rem 0;
+    }
+
+    .bio button {
+        background-color: #f64348;
+        border: unset;
+        border-radius: .25rem;
+        color: #1c1a1d;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .bio button:hover {
+        cursor: pointer;
+        filter: brightness(0.95);
+    }
+
+    a {
+        color: #f64348;
+        text-decoration: none;
+    }
+
+    .content-main {
+        margin: 30px;
+    }
+
+    .content-main .project {
+        border: 1px solid #30363d;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+        border-radius: 6px;
+        margin: 20px;
+    }
+
+    .content-main .project div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .content-main .project div .date-create {
+        color: #8b949e;
+        border: 1px solid #8b949e;
+        border-radius: 20px;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    .content-main .project div .title {
+        color:#47a6f0;
+    }
+
+    .content-main .project .language .circle {
+        background-color: #47a6f0;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 5px;
+        border: 1px solid #30363d;
+        border-radius: 50%;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <main class="content-main">
+            <section class="bio">
+                <input type="text" v-model="searchInput">
+                <button v-on:click="fetchGithubUser">Carregar Usuário</button>
+                <img v-bind:src="avatar_url">
+                <strong>@{{ login }}</strong>
+                <h1>{{ name }}</h1>
+                <h2>{{ company }}</h2>
+                <span>{{ bio }}</span>
+            </section>
+            <section class="project">
+                <div>
+                    <h4 class="title">Título</h4>
+                    <span class="date-create">Data</span>
+                </div>
+                <div>
+                    <a href="#">URL</a>
+                    <span class="language"><span class="circle"></span>HTML</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                name: 'OneBitCode',
+                count: 0,
+                login: 'johndoe',
+                bio: '...',
+                company: 'Acme Inc.',
+                avatar_url: 'https://unsplash.it/256',
+                searchInput: ''
+            }
+        },
+        methods: {
+            async fetchGithubUser() {
+                const res = await fetch(`https://api.github.com/users/${this.searchInput}`)
+                const { login, name, bio, company, avatar_url } = await res.json()
+
+                this.login = login
+                this.name = name
+                this.bio = bio
+                this.company = company
+                this.avatar_url = avatar_url
+            }
+        }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+</html>

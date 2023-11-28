@@ -1,0 +1,309 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "API de Consulta de Veículos"
+servers:
+  - url: https://api.procob.com
+tags:
+  - name: Consulta
+    description: Consulta informações sobre veículos
+paths:
+  /veiculos/v2/V0001:
+    get:
+      summary: "Consulta de Veículos"
+      description: "Consulta informações sobre veículos"
+      parameters:
+        - name: chassi
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Número do chassi do veículo"
+        - name: uf
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Estado do veículo"
+        - name: binBaseEstadual
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "BIN Base Estadual (não obrigatório)"
+        - name: bin
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "BIN (não obrigatório)"
+        - name: precificador
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Precificador (não obrigatório)"
+      responses:
+        '200':
+          description: "Resposta de sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sucesso'
+        '400':
+          description: "Requisição inválida"
+        '500':
+          description: "Erro interno do servidor"
+      security:
+        - basicAuth: []
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Sucesso:
+      properties:
+        code:
+          type: string
+          example: "000"
+        message:
+          type: string
+          example: "Consulta de testes com dados fictícios."
+        date:
+          type: string
+          example: "2023-09-22"
+        hour:
+          type: string
+          example: "18:43:14"
+        revision:
+          type: string
+          example: ""
+        server:
+          type: string
+          example: "38"
+        content:
+          properties:
+            bin:
+              properties:
+                existe_informacao:
+                  type: string
+                  example: "SIM"
+                mensagem:
+                  type: string
+                  example: "Registro encontrado"
+                ano_fabricacao:
+                  type: string
+                  example: "2011"
+                ano_modelo:
+                  type: string
+                  example: "2012"
+                categoria:
+                  type: string
+                  example: ""
+                chassi:
+                  type: string
+                  example: "AAAA23546879541247"
+                cnpj_faturado:
+                  type: string
+                  example: "11122233344455"
+                combustivel:
+                  type: string
+                  example: "ALCOOL/GASOLINA"
+                cor:
+                  type: string
+                  example: "CINZA"
+                marca:
+                  type: string
+                  example: "CHEVROLET/PRISMA"
+                municipio:
+                  type: string
+                  example: "CURITIBA"
+                numero_motor:
+                  type: string
+                  example: "123456"
+                placa:
+                  type: string
+                  example: "AAA1231"
+                procedencia:
+                  type: string
+                  example: "NACIONAL"
+                renavam:
+                  type: string
+                  example: "1123124456"
+                situacao:
+                  type: string
+                  example: "CIRCULACAO"
+                tipo:
+                  type: string
+                  example: "AUTOMOVEL"
+                tipo_remarcacao:
+                  type: string
+                  example: "NORMAL"
+                uf:
+                  type: string
+                  example: "PR"
+                gravame:
+                  properties:
+                    agente_financeiro:
+                      type: string
+                      example: ""
+                    cnpj_cpf_financiado:
+                      type: string
+                      example: ""
+                    data_inclusao:
+                      type: string
+                      example: ""
+                    nome_financiado:
+                      type: string
+                      example: ""
+                    restricao_financeira:
+                      type: string
+                      example: ""
+                    tipo_transacao:
+                      type: string
+                      example: ""
+                restricoes:
+                  type: array
+                  items:
+                    properties:
+                      restricao:
+                        type: string
+                        example: "ALIENACAO FIDUCIARIA"
+            bin_base_estadual:
+              properties:
+                existe_informacao:
+                  type: string
+                  example: "SIM"
+                dados_veiculo:
+                  type: object
+                  properties:
+                    ano_fabricacao:
+                      type: string
+                      example: "2010"
+                    ano_modelo:
+                      type: string
+                      example: "2011"
+                    categoria:
+                      type: string
+                      example: "PARTICULAR"
+                    chassi:
+                      type: string
+                      example: "9C2JC9999BR999999"
+                    combustivel:
+                      type: string
+                      example: "GASOLINA"
+                    cor:
+                      type: string
+                      example: "Preta"
+                    marca:
+                      type: string
+                      example: "HONDA/CG 125 FAN ES"
+                    municipio:
+                      type: string
+                      example: "ITARARE-SP"
+                    numero_motor:
+                      type: string
+                      example: "JC9999B999999"
+                    placa:
+                      type: string
+                      example: "EHB9213"
+                    procedencia:
+                      type: string
+                      example: "NACIONAL"
+                    renavam:
+                      type: string
+                      example: "99999999999"
+                    situacao:
+                      type: string
+                      example: "EM CIRCULACAO"
+                    tipo:
+                      type: string
+                      example: "MOTOCICLO"
+                    tipo_remarcacao:
+                      type: string
+                      example: ""
+                    uf:
+                      type: string
+                      example: "SP"
+                debitos_multas:
+                  type: object
+                  properties:
+                    ipva:
+                      type: string
+                      example: "999,99"
+                    multas:
+                      type: string
+                      example: "999,99"
+                    licenciamento:
+                      type: string
+                      example: "99,99"
+                    dpvat:
+                      type: string
+                      example: "99,99"
+                restricoes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      restricao:
+                        type: string
+                        example: "RESTRICAO AMBIENTAL: veiculo com inspecao veicular ok"
+            precificador:
+              properties:
+                existe_informacao:
+                  type: string
+                  example: "SIM"
+                chassi:
+                  type: string
+                  example: "SASASA531654ASA"
+                origem:
+                  type: string
+                  example: "NACIONAL"
+                regiao:
+                  type: string
+                  example: "BRASIL / PARAGUAI / COLOMBIA / URUGUAI"
+                pais:
+                  type: string
+                  example: "BRASIL"
+                categoria:
+                  type: string
+                  example: "AUTOMOVEL"
+                marca:
+                  type: string
+                  example: "GM"
+                modelo:
+                  type: string
+                  example: "CELTA 2P LIFE"
+                ano:
+                  type: string
+                  example: "2007"
+                carroceria:
+                  type: string
+                  example: "HATCH"
+                versao:
+                  type: string
+                  example: "2P LIFE"
+                combustivel:
+                  type: string
+                  example: ""
+                local_fabricacao:
+                  type: string
+                  example: ""
+                dados_precificacao:
+                  type: object
+                  properties:
+                    codigo:
+                      type: string
+                      example: "004318-4"
+                    marca:
+                      type: string
+                      example: "GM - Chevrolet"
+                    modelo:
+                      type: string
+                      example: "Celta Life/ LS 1.0 MPFI 8V FlexPower 3p"
+                    preco_medio:
+                      type: string
+                      example: "13.787,00"
+          
+ 
