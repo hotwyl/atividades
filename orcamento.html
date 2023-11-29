@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Sorteio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-200 p-4">
+
+    <div id="app" class="max-w-4xl mx-auto bg-white p-8 rounded shadow-md">
+
+        <!-- Cabeçalho -->
+        <header class="mb-6">
+            <h1 class="text-2xl font-semibold text-center"><i class="fas fa-dice text-blue-500 mr-2"></i>Gerador de Ormaento Online</h1>
+        </header>
+
+        <main>
+            <section id="tela-inicial">
+                <!-- Tela Inicial -->
+                <div class="max-w-4xl mb-5 mx-auto bg-white p-8 rounded shadow-md">
+                    <h2 class="text-1xl font-semibold mb-4">Escolha uma opção:</h2>
+                    <label>
+                        <input type="radio" name="opcao" value="orcamento" />
+                        Orçamento
+                    </label>
+                    <label>
+                        <input type="radio" name="opcao" value="ordemServico" />
+                        Ordem de Serviço
+                    </label>
+                </div>
+
+                <!-- Tela Emitente -->
+                <div class="max-w-4xl mb-5  mx-auto bg-white p-8 rounded shadow-md">
+                    <h2 class="text-1xl font-semibold mb-4">Dados do Emitente</h2>
+        
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-2/3 px-2 mb-4">
+                            <label class="block mb-2" for="emitenteNome">Nome do Emitente:</label>
+                            <input v-model="emitente.nome" type="text" class="w-full p-2 border rounded" placeholder="Digite o nome do emitente">
+                        </div>
+                
+                        <div class="w-full md:w-1/3 px-2 mb-4">
+                            <label class="block mb-2" for="emitenteCnpj">CPF/CNPJ:</label>
+                            <input v-model="emitente.cnpj" type="text" class="w-full p-2 border rounded" placeholder="Digite o CPF ou CNPJ do emitente">
+                        </div>
+                
+                        <div class="w-full md:w-full px-2 mb-4">
+                            <label class="block mb-2" for="emitenteEndereco">Endereço:</label>
+                            <input v-model="emitente.endereco" type="text" class="w-full p-2 border rounded" placeholder="Digite o endereço do emitente">
+                        </div>
+                
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label class="block mb-2" for="emitenteTelefone">Telefone:</label>
+                            <input v-model="emitente.telefone" type="text" class="w-full p-2 border rounded" placeholder="Digite o telefone do emitente">
+                        </div>
+                
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label class="block mb-2" for="emitenteEmail">Email:</label>
+                            <input v-model="emitente.email" type="text" class="w-full p-2 border rounded" placeholder="Digite o email do emitente">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tela Cliente -->
+                <div class=" max-w-4xl mb-5 mx-auto bg-white p-8 rounded shadow-md">
+                    <h2 class="text-1xl font-semibold mb-4">Dados do Cliente</h2>
+
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-2/3 px-2 mb-4">
+                            <label class="block mb-2" for="clienteNome">Nome do Cliente:</label>
+                            <input v-model="cliente.nome" type="text" class="w-full p-2 border rounded" placeholder="Digite o nome do cliente">
+                        </div>
+                
+                        <div class="w-full md:w-1/3 px-2 mb-4">
+                            <label class="block mb-2" for="clienteCpfCnpj">CPF/CNPJ:</label>
+                            <input v-model="cliente.cpfCnpj" type="text" class="w-full p-2 border rounded" placeholder="Digite o CPF ou CNPJ do cliente">
+                        </div>
+                
+                        <div class="w-full md:w-full px-2 mb-4">
+                            <label class="block mb-2" for="clienteEndereco">Endereço:</label>
+                            <input v-model="cliente.endereco" type="text" class="w-full p-2 border rounded" placeholder="Digite o endereço do cliente">
+                        </div>
+                
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label class="block mb-2" for="clienteTelefone">Telefone:</label>
+                            <input v-model="cliente.telefone" type="text" class="w-full p-2 border rounded" placeholder="Digite o telefone do cliente">
+                        </div>
+
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label class="block mb-2" for="clienteEmail">Email:</label>
+                            <input v-model="cliente.email" type="text" class="w-full p-2 border rounded" placeholder="Digite o email do cliente">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tela Produtos/Serviços -->
+                <div class="max-w-4xl mb-5 mx-auto bg-white p-8 rounded shadow-md">
+                    <h2 class="text-1xl font-semibold mb-4">Selecionar Produtos/Serviços</h2>
+                    
+                        <!-- Exemplo de um item de produto -->
+                    <div class="mb-4 flex flex-wrap -mx-2">
+                        <div class="w-full md:w-3/6 px-2 mb-4">
+                            <label class="block mb-2" for="produtoDescricao">Descrição:</label>
+                            <input v-model="produto.descricao" type="text" class="w-full p-2 border rounded" placeholder="Digite a descrição do produto/serviço">
+                        </div>
+
+                        <div class="w-full md:w-1/6 px-2 mb-4">
+                            <label class="block mb-2" for="produtoPreco">Preço Unitário:</label>
+                            <input v-model="produto.preco" type="number" class="w-full p-2 border rounded" placeholder="Digite o preço unitário">
+                        </div>
+
+                        <div class="w-full md:w-1/6 px-2 mb-4">
+                            <label class="block mb-2" for="produtoQuantidade">Quantidade:</label>
+                            <input v-model="produto.quantidade" type="number" class="w-full p-2 border rounded" placeholder="Digite a quantidade">
+                        </div>
+                        
+                        <hr class="mt-5">
+                    </div>
+
+                    <!-- Adicionar mais itens de produto conforme necessário -->
+                    <div class="mb-4 flex flex-wrap -mx-2" v-for="(item, index) in itensProduto" :key="index">
+
+                        <div class="w-full md:w-3/6 px-2 mb-4">
+                            <label class="block mb-2" :for="'produtoDescricao' + index">Descrição:</label>
+                            <input v-model="item.descricao" :id="'produtoDescricao' + index" type="text" class="w-full p-2 border rounded" :placeholder="'Digite a descrição do produto/serviço ' + (index + 1)" readonly disabled>
+                        </div>
+
+                        <div class="w-full md:w-1/6 px-2 mb-4">
+                            <label class="block mb-2" :for="'produtoPreco' + index">Preço Unitário:</label>
+                            <input v-model="item.preco" :id="'produtoPreco' + index" type="number" class="w-full p-2 border rounded" :placeholder="'Digite o preço unitário ' + (index + 1)" readonly disabled>
+                        </div>
+
+                        <div class="w-full md:w-1/6 px-2 mb-4">
+                            <label class="block mb-2" :for="'produtoQuantidade' + index">Quantidade:</label>
+                            <input v-model="item.quantidade" :id="'produtoQuantidade' + index" type="number" class="w-full p-2 border rounded" :placeholder="'Digite a quantidade ' + (index + 1)" readonly disabled>
+                        </div>
+
+                        <div class="w-full md:w-1/6 px-2 mb-4 flex items-end">
+                            <button @click="excluirItemProduto(index)" class="bg-red-500 text-white py-2 px-4 rounded">X</button>
+                        </div>
+
+                        <hr class="mt-5">
+                    </div>
+                    
+                    <button @click="adicionarItemProduto()" class="bg-gray-500 text-white py-2 px-4 rounded">Adicionar Item</button>
+                </div>
+
+                <!-- Tela Forma de Pagamento -->
+                <div class="max-w-4xl mb-5 mx-auto bg-white p-8 rounded shadow-md">
+                    <h2 class="text-1xl font-semibold mb-4">Selecionar Forma de Pagamento</h2>
+                    
+                    <div class="flex flex-wrap -mx-2">
+
+                        <div class="items-center w-full md:w-1/2 px-2 mb-4">
+                            <label class="block flex-shrink-0 mr-2" for="formaPagamento">Escolha a forma de pagamento:</label>
+                            <select v-model="formaPagamento" class="w-full p-2 border rounded">
+                                <option value="dinheiro">Dinheiro</option>
+                                <option value="pix">PIX</option>
+                                <option value="cartao">Cartão de Crédito / Débito</option>
+                                <option value="boleto">Boleto Bancário</option>
+                                <option value="transferencia">Transferência Bancária (DOC/TED)</option>
+                            </select>
+                        </div>
+
+                        <div class="items-center w-full md:w-1/2 px-2 mb-4">
+                            <label class="block flex-shrink-0 mr-2" for="valorTotal">Valor Total:</label>
+                            <input v-model="valorTotal" type="number" class="w-full p-2 border rounded" @change="calcularParcelas()" readonly disabled>
+                        </div>
+
+                        <div class="items-center w-full md:w-1/2 px-2 mb-4">
+                            <label class="block mb-2" for="desconto">Desconto:</label>
+                            <input v-model="desconto.valor" type="number" class="w-full p-2 border rounded" placeholder="Digite o valor do desconto">
+                        </div>
+                            
+                        <div class="items-center w-full md:w-1/2 px-2 mb-4">
+                            <label class="block mb-2" for="tipoDesconto">Tipo de Desconto:</label>
+                            <select v-model="desconto.tipo" class="w-full p-2 border rounded">
+                                <option value="porcentagem">Porcentagem</option>
+                                <option value="valor">Valor</option>
+                            </select>
+                        </div>
+                      
+                    <div class="items-center w-full md:w-1/2 px-2 mb-4">
+                        <label class="block mb-2" for="parcelado">Parcelado:</label>
+                        <input v-model="parcelado" type="checkbox" @change="calcularParcelas()"> Pagar Parcelado
+                    </div>
+
+                    <div class="items-center w-full md:w-1/2 px-2 mb-4" v-if="parcelado">
+                        <label class="block mb-2" for="numeroParcelas">Número de Parcelas:</label>
+                        <input v-model="numeroParcelas" type="number" class="w-full p-2 border rounded" placeholder="Digite o número de parcelas">
+                    </div>
+                    
+                </div>
+              
+                <div class="text-center mt-5">
+                    <button @click="mostrarTela('tela-resultado')" class="w-full bg-blue-500 text-white py-2 px-4 rounded mt-4 text">Gerar Orçamento</button>
+                </div>
+
+                
+            </section>
+
+            <!-- Tela de Resultado -->
+            <section id="tela-resultado" class="hidden">
+                <h2 class="text-2xl font-semibold mb-4">Resumo do Pedido</h2>
+                <!-- ... Conteúdo da Tela de Resultado ... -->
+
+                <div class="text-center flex justify-evenly mt-5">
+                    <button @click="imprimirResumo" class="bg-green-500 text-white py-2 px-4 rounded">Imprimir</button>
+                    <button @click="novoOrcamento" class="bg-blue-500 text-white py-2 px-4 rounded ml-2">Novo</button>
+                    <button @click="mostrarTela('tela-inicial')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Editar</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-8">
+            <p class="text-sm text-gray-500 text-center">Feito com ♥ por hotwyl | Gerador de Ormaento Online &reg; Todos os direitos reservados | &copy; <a href="#" target="_blank">WILLFROMBRASIL</a>™ Company Inc <span>{{ year }}</p>
+        </footer>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    telaAtual: 'tela-inicial',
+                    emitente: {
+                        nome: '',
+                        cnpj: '',
+                        endereco: '',
+                        telefone: '',
+                        email: ''
+                    },
+                    cliente: {
+                        nome: '',
+                        cpfCnpj: '',
+                        endereco: '',
+                        telefone: '',
+                        email: ''
+                    },
+                    produto: {
+                        descricao: '',
+                        preco: 0,
+                        quantidade: 0,
+                    },
+                    itensProduto: [],
+                    valorTotal: 0,
+                    tipoDesconto: 'porcentagem',
+                    desconto: 0,
+                    formaPagamento: 'dinheiro',
+                    parcelado: false,
+                    numeroParcelas: 1,
+                    desconto: {
+                            valor: 0,
+                            tipo: 'valor',
+                        },
+                    };
+            },
+            methods: {
+                mostrarTela(tela) {
+                this.telaAtual = tela;
+
+                // Oculta todas as telas
+                const telas = document.querySelectorAll('[id^="tela-"]');
+                telas.forEach(tela => tela.style.display = 'none');
+
+                // Mostra a tela desejada
+                document.getElementById(tela).style.display = 'block';
+
+                },
+                novoOrcamento() {
+                    // Reinicializa os dados para um novo orçamento
+                    // (limpar os dados, reiniciar o estado, etc.)
+                    // ...
+
+                    // Mostra a tela inicial para começar um novo orçamento
+                    this.mostrarTela('tela-inicial');
+                },
+                adicionarItemProduto() {
+                    // Adicione o item atual à lista de itensProduto
+                    this.itensProduto.push({
+                        descricao: this.produto.descricao,
+                        preco: this.produto.preco,
+                        quantidade: this.produto.quantidade,
+                    });
+
+                    // Limpe os campos do produto para um novo item
+                    this.produto.descricao = '';
+                    this.produto.preco = 0;
+                    this.produto.quantidade = 0;
+                },
+                excluirItemProduto(index) {
+                    // Remova o item da lista com base no índice
+                    this.itensProduto.splice(index, 1);
+                },
+                calcularParcelas() {
+                // Adicione sua lógica para calcular o valor das parcelas aqui
+                },
+                exibirResumoPedido() {
+                // Preencha os dados do emitente, cliente, produtos/serviços, forma de pagamento, valor total, etc.
+                // ...
+                this.mostrarTela('tela-resultado');
+                },
+                imprimirResumo() {
+                // Aciona a função de impressão do navegador
+                window.print();
+                },
+                showHelp(field) {
+                    let helpText = '';
+
+                    // Adicione textos informativos para cada campo conforme necessário
+                    switch (field) {
+                        case 'quantity':
+                            helpText = 'Informe a quantidade de números a serem sorteados.';
+                            break;
+                        case 'minNumber':
+                            helpText = 'Informe o número mínimo para o sorteio.';
+                            break;
+                        case 'maxNumber':
+                            helpText = 'Informe o número máximo para o sorteio.';
+                            break;
+                        case 'repeatNumbers':
+                            helpText = 'Marque esta opção se deseja permitir repetição de números no sorteio.';
+                            break;
+                        case 'namesInput':
+                            helpText = 'Digite os nomes dos participantes separados por vírgula.';
+                            break;
+                        case 'repeatNames':
+                            helpText = 'Marque esta opção se deseja permitir repetição de nomes no sorteio.';
+                            break;
+                            // Adicione outros casos conforme necessário
+
+                        default:
+                            helpText = 'Texto de ajuda genérico.';
+                            break;
+                    }
+
+                    // Exibir alert temporizado com o texto informativo
+                    Swal.fire({
+                        title: 'Ajuda',
+                        text: helpText,
+                        icon: 'info',
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                },
+            },
+            created() {
+                this.year = new Date().getFullYear();
+            },
+            mounted() {
+            },
+            updated() {
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
+
+<!-- 
+Pendencias
+
+adicionar campos data de emissão e data de validade
+adicionar bloco para Anotações e Observações
+Adicionar campo de Assinatura na impressão
+
+validar itens obrigatorio
+validar email
+validar cpf / cnpj
+
+calcular valor
+calcular desconto
+calcular parcelas
+
+opção de imprimir
+
+ -->
