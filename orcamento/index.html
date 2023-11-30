@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.3/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Gerador de Orçamento e Ordem de Serviço</title>
+</head>
+
+<body class="bg-gray-200 p-4">
+    <div id="app">
+        <!-- Tela Inicial -->
+        <div id="tela-inicial" class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Escolha uma opção:</h2>
+            <button @click="mostrarTela('tela-emitente')" class="bg-blue-500 text-white py-2 px-4 rounded">Orçamento</button>
+            <button @click="mostrarTela('tela-emitente')" class="bg-green-500 text-white py-2 px-4 rounded ml-2">Ordem de Serviço</button>
+        </div>
+
+        <!-- Tela Emitente -->
+        <div id="tela-emitente" class="hidden max-w-md mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Dados do Emitente</h2>
+            <form>
+                <label class="block mb-2" for="emitenteNome">Nome do Emitente:</label>
+                <input id="emitenteNome" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o nome do emitente" required>
+
+                <label class="block mb-2" for="emitenteCnpj">CNPJ:</label>
+                <input id="emitenteCnpj" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o CNPJ do emitente">
+
+                <label class="block mb-2" for="emitenteEndereco">Endereço:</label>
+                <input id="emitenteEndereco" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o endereço do emitente">
+
+                <label class="block mb-2" for="emitenteTelefone">Telefone:</label>
+                <input id="emitenteTelefone" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o telefone do emitente">
+
+                <!-- Adicione outros campos do emitente conforme necessário -->
+
+                <button type="button" @click="mostrarTela('tela-cliente')" class="bg-blue-500 text-white py-2 px-4 rounded">Próximo</button>
+                <button type="button" @click="mostrarTela('tela-inicial')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Voltar</button>
+            </form>
+        </div>
+
+        <!-- Tela Cliente -->
+        <div id="tela-cliente" class="hidden max-w-md mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Dados do Cliente</h2>
+            <form>
+                <label class="block mb-2" for="clienteNome">Nome do Cliente:</label>
+                <input id="clienteNome" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o nome do cliente">
+
+                <label class="block mb-2" for="clienteCpfCnpj">CPF/CNPJ:</label>
+                <input id="clienteCpfCnpj" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o CPF ou CNPJ do cliente">
+
+                <label class="block mb-2" for="clienteEndereco">Endereço:</label>
+                <input id="clienteEndereco" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o endereço do cliente">
+
+                <label class="block mb-2" for="clienteTelefone">Telefone:</label>
+                <input id="clienteTelefone" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o telefone do cliente">
+
+                <!-- Adicione outros campos do cliente conforme necessário -->
+
+                <button type="button" @click="mostrarTela('tela-produtos')" class="bg-blue-500 text-white py-2 px-4 rounded">Próximo</button>
+                <button type="button" @click="mostrarTela('tela-emitente')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Voltar</button>
+            </form>
+        </div>
+
+        <!-- Tela Produtos/Serviços -->
+        <div id="tela-produtos" class="hidden max-w-md mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Selecionar Produtos/Serviços</h2>
+
+            <!-- Exemplo de um item de produto -->
+            <div class="mb-4">
+                <label class="block mb-2" for="produtoDescricao">Descrição:</label>
+                <input id="produtoDescricao" type="text" class="w-full p-2 border rounded" placeholder="Digite a descrição do produto/serviço">
+
+                <label class="block mb-2" for="produtoPreco">Preço Unitário:</label>
+                <input id="produtoPreco" type="number" class="w-full p-2 border rounded" placeholder="Digite o preço unitário">
+
+                <label class="block mb-2" for="produtoQuantidade">Quantidade:</label>
+                <input id="produtoQuantidade" type="number" class="w-full p-2 border rounded" placeholder="Digite a quantidade">
+            </div>
+
+            <!-- Adicionar mais itens de produto conforme necessário -->
+            <div id="itens-produto"></div>
+            <button type="button" @click="adicionarItemProduto()" class="bg-blue-500 text-white py-2 px-4 rounded">Adicionar Item</button>
+
+            <button type="button" @click="mostrarTela('tela-pagamento')" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">Próximo</button>
+            <button type="button" @click="mostrarTela('tela-cliente')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Voltar</button>
+        </div>
+
+        <!-- Tela Forma de Pagamento -->
+        <div id="tela-pagamento" class="hidden max-w-md mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Selecionar Forma de Pagamento</h2>
+
+            <label class="block mb-2" for="formaPagamento">Escolha a forma de pagamento:</label>
+            <select id="formaPagamento" class="w-full p-2 border rounded">
+                <option value="cartao">Cartão de Crédito</option>
+                <option value="boleto">Boleto Bancário</option>
+                <option value="transferencia">Transferência Bancária</option>
+                <option value="pix">PIX</option>
+                <option value="dinheiro">Dinheiro</option>
+            </select>
+
+            <!-- Valor Total -->
+            <div class="mt-4">
+                <label class="block mb-2" for="valorTotal">Valor Total:</label>
+                <input id="valorTotal" type="number" class="w-full p-2 border rounded" placeholder="Digite o valor total" onchange="calcularParcelas()">
+            </div>
+
+            <!-- Pagamento Parcelado -->
+            <div class="mt-4">
+                <label class="block mb-2" for="parcelado">Parcelado:</label>
+                <input id="parcelado" type="checkbox" onchange="calcularParcelas()"> Pagar Parcelado
+                <div id="infoParcelas" class="mt-2 hidden">
+                    <label class="block mb-2" for="numeroParcelas">Número de Parcelas:</label>
+                    <input id="numeroParcelas" type="number" class="w-full p-2 border rounded" placeholder="Digite o número de parcelas">
+                </div>
+            </div>
+
+            <!-- Desconto -->
+            <div class="mt-4">
+                <label class="block mb-2" for="desconto">Desconto:</label>
+                <input id="desconto" type="number" class="w-full p-2 border rounded" placeholder="Digite o valor do desconto">
+                <div class="mt-2">
+                    <label class="block mb-2" for="tipoDesconto">Tipo de Desconto:</label>
+                    <select id="tipoDesconto" class="w-full p-2 border rounded">
+          <option value="porcentagem">Porcentagem</option>
+          <option value="valor">Valor</option>
+        </select>
+                </div>
+            </div>
+
+            <!-- Adicione outros campos de pagamento conforme necessário -->
+
+            <button type="button" @click="mostrarTela('tela-resultado')" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">Próximo</button>
+            <button type="button" @click="mostrarTela('tela-produtos')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Voltar</button>
+
+        </div>
+
+        <!-- Tela de Resultado -->
+        <div id="tela-resultado" class="hidden max-w-md mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Resumo do Pedido</h2>
+
+            <!-- Emitente -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Emitente:</h3>
+                <p>Nome: <span id="emitenteNomeResultado"></span></p>
+                <!-- Adicione outros detalhes do emitente conforme necessário -->
+            </div>
+
+            <!-- Cliente -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Cliente:</h3>
+                <p>Nome: <span id="clienteNomeResultado"></span></p>
+                <!-- Adicione outros detalhes do cliente conforme necessário -->
+            </div>
+
+            <!-- Produtos/Serviços -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Produtos/Serviços:</h3>
+                <ul id="itensProdutoResultado"></ul>
+                <!-- Adicione outros detalhes dos produtos/serviços conforme necessário -->
+            </div>
+
+            <!-- Forma de Pagamento -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Forma de Pagamento:</h3>
+                <p id="formaPagamentoResultado"></p>
+                <!-- Adicione outros detalhes da forma de pagamento conforme necessário -->
+            </div>
+
+            <!-- Valor Total -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Valor Total:</h3>
+                <p id="valorTotalResultado"></p>
+                <!-- Adicione outros detalhes do valor total conforme necessário -->
+            </div>
+
+            <!-- Adicione outros elementos do resumo conforme necessário -->
+
+            <button type="button" @click="imprimirResumo()" class="bg-green-500 text-white py-2 px-4 rounded">Imprimir</button>
+            <button type="button" @click="mostrarTela('tela-inicial')" class="bg-blue-500 text-white py-2 px-4 rounded ml-2">Novo Pedido</button>
+            <button type="button" @click="mostrarTela('tela-pagamento')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Voltar</button>
+        </div>
+    </div>
+    <!-- Adicione outras telas conforme necessário -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.3/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    telaAtual: 'tela-inicial', // Defina a tela inicial
+                    emitente: {
+                        nome: '',
+                        cnpj: '',
+                        endereco: '',
+                        telefone: '',
+                        // ... Outros dados do emitente ...
+                    },
+                    cliente: {
+                        nome: '',
+                        cpfCnpj: '',
+                        endereco: '',
+                        telefone: '',
+                        // ... Outros dados do cliente ...
+                    },
+                    produtos: [{
+                        descricao: '',
+                        preco: 0,
+                        quantidade: 0,
+                    }],
+                    formaPagamento: 'cartao',
+                    valorTotal: 0,
+                    itensProduto: [], // Array para armazenar itens de produtos
+                    itemCounter: 1, // Contador para gerar IDs únicos para os itens de produtos
+                    // ... Outros dados do seu aplicativo ...
+                };
+            },
+            methods: {
+                mostrarTela(tela) {
+                    this.telaAtual = tela;
+                },
+                imprimirResumo() {
+                    window.print();
+                },
+                exibirResumoPedido() {
+                    // Preencha os dados do emitente, cliente, produtos/serviços, forma de pagamento, valor total, etc.
+                    // ... Código para preencher os dados ...
+
+                    // Atualize a tela para a tela de resultado
+                    this.telaAtual = 'tela-resultado';
+                },
+                novaCompra() {
+                    // Resetar dados ou navegar para a tela inicial
+                    // ... Código para resetar dados ...
+
+                    // Voltar para a tela inicial
+                    this.telaAtual = 'tela-inicial';
+                },
+                adicionarItemProduto() {
+                    this.itensProduto.push({
+                        id: this.itemCounter,
+                        descricao: '',
+                        preco: 0,
+                        quantidade: 0
+                    });
+                    this.itemCounter++;
+                },
+                // ... Outros métodos do seu aplicativo ...
+            },
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

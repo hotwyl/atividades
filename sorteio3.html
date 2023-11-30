@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio via Redes Sociais</title>
+    <!-- Adicionando Materialize CSS via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Adicionando Font Awesome via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        /* Fixar o rodapé no fim da página */
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="blue-grey lighten-5">
+
+    <header>
+        <!-- Cabeçalho Materialize -->
+        <nav class="blue darken-2">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">Sorteio</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="app">
+
+        <component :is="currentScreen"></component>
+
+    </main>
+
+    <!-- Rodapé Materialize -->
+    <footer class="page-footer blue darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Sorteio</h5>
+                    <p class="grey-text text-lighten-4">Seu portal de sorteios favorito.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Adicionando SweetAlert via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Adicionando Materialize JS via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Adicionando Vue 3 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <!-- Adicionando script personalizado -->
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    currentScreen: 'SelecionarTipo',
+                    email: '',
+                    nome: '',
+                    tipoInscricao: '',
+                    resultado: '',
+                    historicoSorteados: [],
+                };
+            },
+            methods: {
+                selecionarTipo(tipo) {
+                    console.log(tipo);
+                    this.tipoInscricao = tipo;
+                    this.currentScreen = 'FazerInscricao';
+                },
+                fazerInscricao() {
+                    console.log(this.tipoInscricao);
+                    this.$refs.fazerInscricaoComponent.fazerInscricao();
+                    // Lógica para realizar a inscrição conforme o tipo selecionado
+                    // if (this.tipoInscricao === 'email') {
+                    //     this.participarPorEmail();
+                    // } else {
+                    //     this.participarPorOutrasPlataformas();
+                    // }
+                },
+                participarSorteio(plataforma) {
+                    // Lógica de sorteio
+                    // ...
+
+                    if (plataforma === 'email') {
+                        this.participarPorEmail();
+                    } else {
+                        this.participarPorOutrasPlataformas(plataforma);
+                    }
+                    // Exemplo de uso do SweetAlert para mostrar o resultado
+                    Swal.fire({
+                        title: 'Sorteio Concluído!',
+                        text: 'Parabéns, você está participando!',
+                        icon: 'success',
+                        timer: 5000, // Tempo em milissegundos (5 segundos)
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+
+                    // Lógica adicional conforme necessário
+                },
+                participarPorEmail() {
+                    const email = this.email;
+
+                    if (!this.isValidEmail(email)) {
+                        Swal.fire({
+                            title: 'Erro',
+                            text: 'Por favor, insira um e-mail válido.',
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    // Lógica para participação via e-mail
+                    this.resultado = "Parabéns! Você está participando via e-mail.";
+                    this.adicionarAoHistorico(this.email);
+                },
+                participarPorOutrasPlataformas(plataforma) {
+                    // Lógica para outras plataformas (Instagram, Facebook, YouTube, LinkedIn)
+                    // ...
+
+                    // Simulação de uma lista de participantes
+                    const participantes = ["João", "Maria", "Carlos", "Ana", "Pedro"];
+
+                    if (participantes.length === 0) {
+                        this.resultado = "Não há participantes.";
+                        return;
+                    }
+
+                    const indiceVencedor = Math.floor(Math.random() * participantes.length);
+                    const vencedor = participantes[indiceVencedor];
+
+                    // Exibir o resultado
+                    this.resultado = `Parabéns, ${vencedor}! Você ganhou via ${this.tipoInscricao}!`;
+
+                    // Adicionar ao histórico
+                    this.adicionarAoHistorico(vencedor);
+                },
+                isValidEmail(email) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(email);
+                },
+                irParaConfirmacao() {
+                    this.currentScreen = 'ConfirmacaoCadastro';
+                },
+                realizarSorteio() {
+                    // Lógica para realizar o sorteio
+                    if (this.historicoSorteados.length === 0) {
+                        this.resultado = 'Não há participantes para sortear.';
+                        return;
+                    }
+
+                    const indiceVencedor = Math.floor(Math.random() * this.historicoSorteados.length);
+                    const vencedor = this.historicoSorteados[indiceVencedor];
+
+                    this.resultado = `Parabéns, ${vencedor}! Você ganhou no sorteio!`;
+
+                    Swal.fire({
+                        title: 'Sorteio Concluído!',
+                        text: `Parabéns, ${vencedor}! Você ganhou no sorteio!`,
+                        icon: 'success',
+                        timer: 5000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                },
+            },
+            created() {
+                console.log('App criado!');
+            },
+            mounted() {},
+            updated() {},
+            computed: {
+                isEmail() {
+                    return this.tipoInscricao === 'email';
+                },
+                isInstagram() {
+                    return this.tipoInscricao === 'instagram';
+                },
+                isFacebook() {
+                    return this.tipoInscricao === 'facebook';
+                },
+                isYoutube() {
+                    return this.tipoInscricao === 'youtube';
+                },
+                isLinkedin() {
+                    return this.tipoInscricao === 'linkedin';
+                },
+            },
+            components: {
+                SelecionarTipo: {
+                    template: `
+                        <div>
+                            <h1 class="center-align">Selecione o Tipo de Inscrição</h1>
+                            <div class="row center-align">
+                                <div class="col s12 m6">
+                                    <button @click="selecionarTipo('email')" class="btn waves-effect waves-light">E-mail</button>
+                                </div>
+                                <div class="col s12 m6">
+                                    <button @click="selecionarTipo('outras')" class="btn waves-effect waves-light">Outras Plataformas</button>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    methods: {
+                        selecionarTipo(tipo) {
+                            this.$emit('selecionar-tipo', tipo);
+                        },
+                    },
+                },
+                FazerInscricao: {
+                    template: `
+                        <div>
+                            <h1 class="center-align">Faça a Inscrição</h1>
+                            <div v-if="tipoInscricao === 'email'" class="row center-align">
+                                <div class="input-field col s12 m6">
+                                    <input v-model="email" id="email" type="email" class="validate">
+                                    <label for="email">Insira seu E-mail:</label>
+                                </div>
+                            </div>
+                            <div v-else class="row center-align">
+                                <div class="input-field col s12 m6">
+                                    <input v-model="nome" id="nome" type="text" class="validate">
+                                    <label for="nome">Insira seu Nome:</label>
+                                </div>
+                            </div>
+                            <div class="row center-align">
+                                <div class="col s12 m6">
+                                    <button @click="fazerInscricao" class="btn waves-effect waves-light">Participar</button>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    props: ['tipoInscricao'],
+                    data() {
+                        return {
+                            email: '',
+                            nome: '',
+                        };
+                    },
+                    methods: {
+                        fazerInscricao() {
+                            this.$emit('fazer-inscricao');
+                        },
+                    },
+                },
+                ConfirmacaoCadastro: {
+                    template: `
+                        <div>
+                            <h1 class="center-align">Confirmação de Cadastro</h1>
+                            <div class="row center-align">
+                                <div class="col s12">
+                                    <p id="resultado">{{ resultado }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    props: ['resultado'],
+                    methods: {
+                        realizarSorteio() {
+                            this.$emit('realizar-sorteio');
+                        },
+                    },
+                },
+            },
+
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

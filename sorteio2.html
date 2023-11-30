@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio via Redes Sociais</title>
+    <!-- Adicionando Materialize CSS via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Adicionando Font Awesome via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        /* Fixar o rodapé no fim da página */
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="blue-grey lighten-5">
+
+    <header>
+        <!-- Cabeçalho Materialize -->
+        <nav class="blue darken-2">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">Sorteio</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="app">
+
+        <div class="container">
+            <h1 class="center-align">Sorteio Via Redes Sociais</h1>
+            <p class="center-align">Clique no botão abaixo para participar do sorteio!</p>
+            <p class="center-align">Escolha a rede social pela qual deseja participar:</p>
+
+            <!-- Botões Materialize -->
+            <div class="row center-align">
+                <div class="col s12 m6 l4">
+                    <button @click="participarSorteio('teste')" class="btn waves-effect waves-light">Participar</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button @onclick="participarSorteio('instagram')" class="btn waves-effect waves-light">Participar via Instagram</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button @onclick="participarSorteio('facebook')" class="btn waves-effect waves-light">Participar via Facebook</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button @onclick="participarSorteio('youtube')" class="btn waves-effect waves-light">Participar via YouTube</button>
+                </div>
+                <div class="col s12 m6 l4">
+                    <button @onclick="participarSorteio('linkedin')" class="btn waves-effect waves-light">Participar via LinkedIn</button>
+                </div>
+                <div class="col s12 m6 l4">
+                </div>
+
+                <!-- Input Materialize para participação via E-mail -->
+                <div class="row center-align">
+                    <div class="input-field col s12 m6">
+                        <input v-model="email" id="email" type="email" class="validate">
+                        <label for="email">Participar via E-mail:</label>
+                    </div>
+                    <div class="col s12 m6">
+                        <button @onclick="participarSorteio('email')" class="btn waves-effect waves-light">Participar via E-mail</button>
+                    </div>
+                </div>
+
+                <!-- Resultado Materialize -->
+                <div class="row center-align">
+                    <div class="col s12">
+                        <p id="resultado">{{ resultado }}</p>
+                    </div>
+                </div>
+
+    </main>
+
+    <!-- Rodapé Materialize -->
+    <footer class="page-footer blue darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Sorteio</h5>
+                    <p class="grey-text text-lighten-4">Seu portal de sorteios favorito.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Adicionando SweetAlert via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Adicionando Materialize JS via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Adicionando Vue 3 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <!-- Adicionando script personalizado -->
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    email: '',
+                    resultado: '',
+                };
+            },
+            methods: {
+                participarSorteio(plataforma) {
+                    // Lógica de sorteio
+                    // ...
+
+                    if (plataforma === 'email') {
+                        this.participarPorEmail();
+                    } else {
+                        this.participarPorOutrasPlataformas(plataforma);
+                    }
+                    // Exemplo de uso do SweetAlert para mostrar o resultado
+                    Swal.fire({
+                        title: 'Sorteio Concluído!',
+                        text: 'Parabéns, você está participando!',
+                        icon: 'success',
+                        timer: 5000, // Tempo em milissegundos (5 segundos)
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+
+                    // Lógica adicional conforme necessário
+                },
+                participarPorEmail() {
+                    const email = this.email;
+
+                    if (!this.isValidEmail(email)) {
+                        Swal.fire({
+                            title: 'Erro',
+                            text: 'Por favor, insira um e-mail válido.',
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    // Lógica para participação via e-mail
+                    this.resultado = "Parabéns! Você está participando via e-mail.";
+                },
+                participarPorOutrasPlataformas(plataforma) {
+                    // Lógica para outras plataformas (Instagram, Facebook, YouTube, LinkedIn)
+                    // ...
+
+                    const participantes = ["João", "Maria", "Carlos", "Ana", "Pedro"];
+
+                    if (participantes.length === 0) {
+                        this.resultado = "Não há participantes.";
+                        return;
+                    }
+
+                    const indiceVencedor = Math.floor(Math.random() * participantes.length);
+                    const vencedor = participantes[indiceVencedor];
+
+                    // Exibir o resultado
+                    this.resultado = `Parabéns, ${vencedor}! Você ganhou via ${plataforma}!`;
+
+                    // Exemplo de uso do SweetAlert para mostrar o resultado
+                    Swal.fire({
+                        title: 'Sorteio Concluído!',
+                        text: 'Parabéns, você está participando!',
+                        icon: 'success',
+                        timer: 5000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                },
+                isValidEmail(email) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(email);
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

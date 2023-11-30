@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.3/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Tela Emitente</title>
+</head>
+
+<body class="bg-gray-200 p-4">
+
+    <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Dados do Emitente</h2>
+
+        <!-- Formulário para dados do emitente -->
+        <form>
+            <label class="block mb-2" for="emitenteNome">Nome do Emitente:</label>
+            <input id="emitenteNome" type="text" class="w-full mb-4 p-2 border rounded" placeholder="Digite o nome do emitente">
+
+            <!-- Outros campos do emitente aqui -->
+
+            <button type="button" onclick="navigateTo('cliente.html')" class="bg-blue-500 text-white py-2 px-4 rounded">Próximo</button>
+            <button type="button" onclick="navigateTo('index.html')" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Voltar</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.0.11/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.3/dist/sweetalert2.min.js"></script>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+
+</html>
