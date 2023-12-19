@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Precificação</title>
+  <!-- Adicione os CDNs do Vue 3 e do Bootstrap para estilos básicos -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.prod.js"></script>
+  <style>
+        body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .form-control {
+      margin-bottom: 1rem;
+    }
+    .btn-primary {
+      margin-top: 1rem;
+    }
+    .result {
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+    .help-text {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px 0;
+      background-color: #343a40;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+          <h1>Calculadora de Precificação</h1>
+        </header>
+
+        <main id="app" class="container mt-5">
+            <div class="mb-3">
+                <label for="num-ads">Número de Anúncios:</label>
+                <input v-model="numAds" type="number" id="num-ads" class="form-control">
+                <div class="help-text"><a href="#" data-bs-toggle="tooltip" title="Insira o número de anúncios desejado, ex: 100">Exemplo: 100</a></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="price-per-ad">Preço por Anúncio (R$):</label>
+                <input v-model="pricePerAd" type="number" step="0.01" id="price-per-ad" class="form-control">
+                <div class="help-text"><a href="#" data-bs-toggle="tooltip" title="Insira o preço por anúncio, ex: 5.00">Exemplo: 5.00</a></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="campaign-days">Duração da Campanha (dias):</label>
+                <input v-model="campaignDays" type="number" id="campaign-days" class="form-control">
+                <div class="help-text"><a href="#" data-bs-toggle="tooltip" title="Insira a duração da campanha em dias, ex: 7">Exemplo: 7</a></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="discount-rate">Taxa de Desconto (%):</label>
+                <input v-model="discountRate" type="number" step="0.1" id="discount-rate" class="form-control">
+                <div class="help-text"><a href="#" data-bs-toggle="tooltip" title="Insira a taxa de desconto desejada, ex: 10">Exemplo: 10</a></div>
+            </div>
+
+            <button @click="calculatePrice" class="btn btn-primary">Calcular</button>
+
+            <div class="result">
+                <label for="total-price">Preço Total (R$):</label>
+                <input v-model="totalPrice" type="text" id="total-price" class="form-control" readonly>
+                <div class="help-text"><a href="#" data-bs-toggle="tooltip" title="Exemplo de cálculo: (100 * 4.50 * 7) = 3150">Exemplo de cálculo</a></div>
+            </div>
+        </main>
+
+        <footer>
+            Desenvolvido por Seu Nome - &copy; 2023
+        </footer>
+    </div>
+
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        numAds: 0,
+        pricePerAd: 0,
+        campaignDays: 0,
+        discountRate: 0,
+        totalPrice: 0
+      };
+    },
+    methods: {
+      calculatePrice() {
+        const discountedPrice = this.pricePerAd - (this.pricePerAd * this.discountRate / 100);
+        this.totalPrice = (this.numAds * discountedPrice * this.campaignDays).toFixed(2);
+      }
+    }
+  });
+
+  app.mount('#app');
+
+  // Inicializar o Bootstrap Tooltip
+  document.addEventListener('DOMContentLoaded', function () {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  });
+</script>
+
+</body>
+</html>

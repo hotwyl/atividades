@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de precificação para desenvolvimento de sites">
+    <meta name="keywords" content="calculadora, precificação, desenvolvimento de sites, web development">
+    <meta name="author" content="Seu Nome">
+    <title>Calculadora de Precificação</title>
+    <!-- Adicione os links dos CDNs do Vue 3 aqui -->
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+
+    <div id="app">
+        <header>
+            <h1>Calculadora de Precificação</h1>
+        </header>
+    
+        <form @submit.prevent="calcularPreco">
+            <label for="tipoSite">Tipo de Site:</label>
+            <select v-model="tipoSite" required>
+                <option value="simples">Simples</option>
+                <option value="intermediario">Intermediário</option>
+                <option value="avancado">Avançado</option>
+            </select>
+    
+            <div class="input-group">
+                <label for="horas">Horas de Desenvolvimento:</label>
+                <input type="number" v-model="horas" required>
+                <span class="ajuda" @click="exibirAjuda('horas')">&#9432;</span>
+            </div>
+    
+            <div class="input-group">
+                <label for="taxa">Taxa por Hora:</label>
+                <input type="number" v-model="taxa" required>
+                <span class="ajuda" @click="exibirAjuda('taxa')">&#9432;</span>
+            </div>
+    
+            <div class="input-group">
+                <label for="custos">Custos Adicionais:</label>
+                <input type="number" v-model="custos">
+                <span class="ajuda" @click="exibirAjuda('custos')">&#9432;</span>
+            </div>
+    
+            <label>
+                <input type="checkbox" v-model="incluiHospedagem"> Incluir Hospedagem
+            </label>
+    
+            <label>
+                <input type="checkbox" v-model="incluiDominio"> Incluir Domínio
+            </label>
+    
+            <label>
+                <input type="checkbox" v-model="incluiIdentidadeVisual"> Incluir Identidade Visual
+            </label>
+    
+            <label>
+                <input type="checkbox" v-model="producaoConteudo"> Produção de Conteúdo
+            </label>
+    
+            <button type="submit">Calcular</button>
+        </form>
+    
+        <div v-if="precoTotal !== null" class="resultado">
+            <h2>Preço Total: ${{ precoTotal }}</h2>
+            <span class="ajuda" @click="exibirAjudaResultado">&#9432;</span>
+            <!-- <button class="ajuda" @click="exibirAjudaResultado">&#9432; Exemplo de Cálculo</button> -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Seu Nome. Todos os direitos reservados.</p>
+    </footer>
+    
+    
+    <script>
+        const { ref, computed } = Vue;
+    
+        const app = Vue.createApp({
+            data() {
+                    return {
+                    tipoSite: 'simples',
+                    horas: 0,
+                    taxa: 0,
+                    custos: 0,
+                    incluiHospedagem: false,
+                    incluiDominio: false,
+                    incluiIdentidadeVisual: false,
+                    producaoConteudo: false,
+                    precoTotal: 0,
+                };
+            },
+            computed: {
+                fatorComplexidade() {
+                    // Fatores de multiplicação com base no tipo de site
+                    const fatores = {
+                        simples: 1,
+                        intermediario: 3,
+                        avancado: 5,
+                    };
+                    return fatores[this.tipoSite];
+                },
+                precoHora() {
+                    // Leva em consideração o fator de complexidade
+                    return this.horas * this.taxa * this.fatorComplexidade;
+                },
+                precoTotal() {
+                    // Adiciona custos adicionais e custo do CMS (se incluído)
+                    let total = this.precoHora + this.custos;
+                    if (this.incluiCMS) {
+                        total += 500; // Valor arbitrário para o custo de um CMS
+                    }
+                    // Adiciona custos específicos se as opções estiverem marcadas
+                    if (this.incluiHospedagem) {
+                        total += 200; // Valor arbitrário para o custo de hospedagem
+                    }
+                    if (this.incluiDominio) {
+                        total += 20; // Valor arbitrário para o custo de domínio
+                    }
+                    if (this.incluiIdentidadeVisual) {
+                        total += 300; // Valor arbitrário para o custo de identidade visual
+                    }
+                    if (this.producaoConteudo) {
+                        total += 150; // Valor arbitrário para o custo de produção de conteúdo
+                    }
+                    console.log(this.total)
+                    
+                    return total.toFixed(2);
+                },
+            },
+            methods: {
+                calcularPreco() {
+                    this.precoTotal = this.formatarPreco(this.precoTotal);
+                },
+                exibirAjuda(campo) {
+                    // Adicione suas mensagens de ajuda aqui
+                    alert(`Ajuda para o campo ${campo}`);
+                },
+                exibirAjudaResultado() {
+                    // Implemente uma interface amigável para fornecer ajuda, como modais ou informações visuais.
+                console.log('Exemplo de cálculo:\n\nHoras: 10\nTaxa: $30\nCustos Adicionais: $50\nHospedagem: Sim\nDomínio: Não\nIdentidade Visual: Sim\nProdução de Conteúdo: Não\n\nPreço Total: $400');
+                    // Adicione sua mensagem de ajuda para o resultado aqui
+                    alert('Exemplo de cálculo:\n\nHoras: 10\nTaxa: $30\nCustos Adicionais: $50\nHospedagem: Sim\nDomínio: Não\nIdentidade Visual: Sim\nProdução de Conteúdo: Não\n\nPreço Total: $400');
+                },
+                formatarPreco(valor) {
+                    if (typeof valor === 'number') {
+                        return valor.toFixed(2);
+                    }
+                    return valor;
+                },
+            },
+        });
+    
+        app.mount('#app');
+    </script>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #f5f5f5;
+    }
+
+    #app {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: grid;
+        grid-gap: 10px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    input {
+        width: calc(100% - 20px);
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .ajuda {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    h2 {
+        color: #4caf50;
+    }
+
+    .resultado {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #ddd;
+    }
+</style>
+
+</body>
+</html>

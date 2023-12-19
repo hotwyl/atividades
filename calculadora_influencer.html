@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de Orçamento para Influenciadores, Promoters e Afiliados">
+    <meta name="keywords" content="influenciadores, promoters, afiliados, marketing, orçamento">
+    <meta name="author" content="hotwyl">
+
+    <title>Calculadora de Orçamento</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+    
+        footer {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    
+        .help-text {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Calculadora de Orçamento</h1>
+    </header>
+
+    <div class="container" id="app">
+        <div class="calculator">
+            <div>
+                <label for="followers">Seguidores/Visualizações:
+                    <button @click="showHelp('followers')">?</button>
+                </label>
+                <input type="number" v-model="followers" id="followers">
+                <p v-show="helpTarget === 'followers'" class="help-text">Exemplo: 50000</p>
+            </div>
+    
+            <div>
+                <label for="rate">Taxa por Seguidor/Visualização (em centavos):
+                    <button @click="showHelp('rate')">?</button>
+                </label>
+                <input type="number" v-model="rate" id="rate">
+                <p v-show="helpTarget === 'rate'" class="help-text">Exemplo: 20</p>
+            </div>
+    
+            <div>
+                <label for="duration">Duração da Campanha (em dias):
+                    <button @click="showHelp('duration')">?</button>
+                </label>
+                <input type="number" v-model="duration" id="duration">
+                <p v-show="helpTarget === 'duration'" class="help-text">Exemplo: 7</p>
+            </div>
+    
+            <div class="result">
+                <h2>Orçamento Total:</h2>
+                <p>{{ calculateBudget() | currency }}</p>
+                <button @click="showHelp('result')">Ajuda</button>
+                <p v-show="helpTarget === 'result'" class="help-text">Exemplo: Se você tiver 50.000 seguidores, cobrar 20 centavos por seguidor e a campanha durar 7 dias, o orçamento total será R$ 70,00.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Seu Nome. Todos os direitos reservados.</p>
+    </footer>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                followers: 0,
+                rate: 0,
+                duration: 0,
+                helpTarget: null
+            };
+        },
+        methods: {
+            calculateBudget() {
+                return (this.followers * this.rate * this.duration / 100).toFixed(2);
+            },
+            showHelp(target) {
+                this.helpTarget = this.helpTarget === target ? null : target;
+            }
+        },
+        filters: {
+            currency(value) {
+                return `$${value}`;
+            }
+        }
+    });
+
+    app.mount('#app');
+</script>
+
+</body>
+</html>

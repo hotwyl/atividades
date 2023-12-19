@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora para empreendedores e empresários precificarem valor de produtos ou serviços.">
+    <title>Calculadora Empresarial</title>
+    <!-- Adicione outras meta tags para SEO aqui -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<style>
+    /* Reset de estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.calculator {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group-text {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Adicione mais estilos conforme necessário */
+
+</style>
+<body>
+
+<header>
+    <h1>Calculadora Empresarial</h1>
+</header>
+
+<main id="app">
+    <section class="calculator">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Custo Fixo</span>
+            <input type="number" v-model="custoFixo" class="form-control" @focus="showHelp('Custo Fixo', 'Insira os custos fixos mensais.')">
+            <button class="btn btn-outline-secondary" @click="showHelp('Custo Fixo', 'Os custos fixos incluem despesas mensais como aluguel, salários, etc.')">?</button>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Custo Variável por Unidade</span>
+            <input type="number" v-model="custoVariavel" class="form-control" @focus="showHelp('Custo Variável', 'Insira o custo variável por unidade do seu produto ou serviço.')">
+            <button class="btn btn-outline-secondary" @click="showHelp('Custo Variável', 'Custo adicional incorrido a cada unidade produzida ou serviço prestado.')">?</button>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Margem de Lucro (%)</span>
+            <input type="number" v-model="margemLucro" class="form-control" @focus="showHelp('Margem de Lucro', 'Informe a margem de lucro desejada para o seu produto ou serviço.')">
+            <button class="btn btn-outline-secondary" @click="showHelp('Margem de Lucro', 'Porcentagem de lucro desejada sobre o custo total.')">?</button>
+        </div>
+
+        <!-- Adicione mais campos conforme necessário -->
+
+        <div class="input-group mb-3">
+            <button class="btn btn-primary" @click="calcular">Calcular</button>
+        </div>
+
+        <div class="result">
+            <h3>Resultado</h3>
+            <p>O preço sugerido para seu produto/serviço é: R$ {{ resultado }}</p>
+            <button class="btn btn-outline-secondary" @click="showHelp('Resultado', 'Este é o preço sugerido para seus produtos ou serviços com base nos custos fornecidos.')">?</button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 Sua Empresa. Todos os direitos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                custoFixo: 0,
+                custoVariavel: 0,
+                margemLucro: 0,
+                // Adicione mais variáveis de dados conforme necessário
+            };
+        },
+        computed: {
+            resultado() {
+                // Adicione a lógica de cálculo aqui
+                const custoTotal = parseFloat(this.custoFixo) + parseFloat(this.custoVariavel);
+                const margemDecimal = 1 + parseFloat(this.margemLucro) / 100;
+                return (custoTotal * margemDecimal).toFixed(2);
+            },
+        },
+        methods: {
+            calcular() {
+                // Adicione mais lógica de cálculo conforme necessário
+                alert('Calculando...');
+            },
+            showHelp(title, message) {
+                alert(`${title}: ${message}`);
+            },
+        },
+    });
+
+    app.mount('#app');
+</script>
+</body>
+</html>
