@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encurte suas URLs de forma fácil e rápida.">
+    <meta name="keywords" content="encurtador de links, encurtar URL, URL curta">
+    <meta name="author" content="Seu Nome">
+
+    <title>Encurtador de Links</title>
+
+    <!-- Vue 3 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <!-- QRCode Vue Component CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode.vue"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3498db;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .resultado-container {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .qrcode-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .link-list {
+            margin-top: 20px;
+        }
+
+        .link-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .link-list li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .link-list a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .link-list a:hover {
+            text-decoration: underline;
+        }
+
+        .link-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn, .view-btn {
+            padding: 6px 10px;
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .edit-btn:hover, .delete-btn:hover, .view-btn:hover {
+            background-color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Encurtador de Links</h1>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Sobre</a>
+                <a href="#">Contato</a>
+            </nav>
+        </header>
+
+        <div class="container">
+            <div class="form-container">
+                <label for="original-url">URL Original:</label>
+                <input type="url" v-model="originalUrl" placeholder="Cole sua URL aqui" required>
+                <button @click="encurtarLink">Encurtar</button>
+            </div>
+
+            <div v-if="resultado.linkEncurtado" class="resultado-container">
+                <strong>Link Encurtado:</strong>
+                <a :href="resultado.linkEncurtado" target="_blank">{{ resultado.linkEncurtado }}</a>
+            </div>
+
+            <div v-if="resultado.linkEncurtado" class="qrcode-container">
+                <qrcode-vue :text="resultado.linkEncurtado" :options="{ width: 128, height: 128 }"></qrcode-vue>
+            </div>
+
+            <div class="link-list" id="link-list">
+                <h2>Links Encurtados</h2>
+                <ul>
+                    <li v-for="link in links" :key="link.linkEncurtado">
+                        <div>
+                            <a :href="link.linkEncurtado" target="_blank">{{ link.linkEncurtado }}</a>
+                            <div class="link-actions">
+                                <button class="edit-btn" @click="editarLink(link.linkEncurtado)">Editar</button>
+                                <button class="delete-btn" @click="excluirLink(link.linkEncurtado)">Excluir</button>
+                                <button class="view-btn" @click="abrirModal(link.linkEncurtado)">Visualizar</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div v-if="modalVisivel" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="fecharModal">&times;</span>
+                <div id="modal-content"></div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2023 Encurtador de Links | Desenvolvido por Seu Nome
+        </footer>
+    </div>
+
+    <script>
+        // Componente QRCodeVue
+        const QRCodeVue = window.QRCodeVue.default;
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    originalUrl: '',
+                    resultado: {
+                        linkEncurtado: '',
+                    },
+                    links: [],
+                    modalVisivel: false,
+                };
+            },
+            methods: {
+                encurtarLink() {
+                    // Simulação de encurtamento (substitua esta lógica pelo seu serviço real)
+                    this.resultado.linkEncurtado = 'http://seulinkencurtado.com/' + Math.random().toString(36).substr(2, 7);
+
+                    // Adiciona o link encurtado à lista
+                    this.links.push({ linkEncurtado: this.resultado.linkEncurtado });
+
+                    // Armazena a lista de links no Local Storage
+                    this.atualizarLocalStorage();
+                },
+                abrirModal(linkEncurtado) {
+                    this.modalVisivel = true;
+                    // Lógica para preencher o modal com informações detalhadas
+                    // (por exemplo, criar um componente Vue para o modal)
+                },
+                fecharModal() {
+                    this.modalVisivel = false;
+                },
+                editarLink(linkEncurtado) {
+                    const novoLink = prompt('Edite o link:', linkEncurtado);
+
+                    if (novoLink && novoLink !== linkEncurtado) {
+                        // Atualiza o link na lista
+                        const linkIndex = this.links.findIndex(link => link.linkEncurtado === linkEncurtado);
+
+                        if (linkIndex !== -1) {
+                            this.links[linkIndex].linkEncurtado = novoLink;
+                            // Atualiza o Local Storage
+                            this.atualizarLocalStorage();
+                        }
+                    }
+                },
+                excluirLink(linkEncurtado) {
+                    if (confirm('Tem certeza de que deseja excluir este link?')) {
+                        // Remove o link da lista
+                        this.links = this.links.filter(link => link.linkEncurtado !== linkEncurtado);
+                        // Atualiza o Local Storage
+                        this.atualizarLocalStorage();
+                    }
+                },
+                atualizarLocalStorage() {
+                    localStorage.setItem('linkList', JSON.stringify(this.links));
+                },
+            },
+            mounted() {
+                // Recupera a lista de links do Local Storage ao carregar a página
+                const storedLinks = localStorage.getItem('linkList');
+
+                if (storedLinks) {
+                    this.links = JSON.parse(storedLinks);
+                }
+            },
+        });
+
+        app.component('qrcode-vue', QRCodeVue);
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
