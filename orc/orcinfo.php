@@ -264,8 +264,6 @@ function getServAdicional($servicosAdicionais, $valorTotal, $horasTotais, $maoDE
         "horas" => intval($horasTotais),
         "descricao" => implode(' + ', $descr)
     ];
-        
-
 }
 
 // Função para calcular o orçamento com base nas categorias de infoprodutos e serviços
@@ -275,8 +273,6 @@ function calcularOrcamento($tipoInfoproduto, $servicosAdicionais){
     $horasPorDia = 4; // Quantidade de horas trabalhadas por dia
     $horasTotais = 0;
     $valorTotal = 0;
-
-
 
     $orcInfoProd = getOrcInfoProd($tipoInfoproduto, $valorTotal, $horasTotais, $maoDEobra);
 
