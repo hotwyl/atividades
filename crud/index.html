@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Descrição do seu site para SEO">
+    <title>Seu CRUD RSS</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Inclua o Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Inclua a biblioteca DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <!-- Cabeçalho aqui -->
+    <header>
+        <h1>Seu CRUD RSS</h1>
+    </header>
+
+    <!-- Conteúdo aqui -->
+    <main class="container">
+
+        <section>
+            <a href="#" class="btn btn-success new-item-btn" data-toggle="modal" data-target="#addItemModal">Cadastrar Novo Item</a>
+            
+            <!-- Tabela de feeds -->
+            <table id="feeds-table" class="table">
+                <!-- Cabeçalho da tabela -->
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>URL</th>
+                        <th>Categoria</th>
+                        <th>Subcategoria</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <!-- Corpo da tabela -->
+                <tbody>
+                    <!-- Dados da tabela serão preenchidos dinamicamente -->
+                    <!-- Linhas da tabela são preenchidas dinamicamente com JavaScript -->
+                </tbody>
+            </table>
+    
+            <!-- Paginação -->
+            <div id="pagination" class="pagination"></div>
+        </section>
+        
+
+        <!-- Formulário de adição/editação -->
+
+        <section>
+            <!-- Modal de cadastro -->
+            <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addItemModalLabel">Cadastrar Novo Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Formulário de cadastro -->
+                            <form id="addItemForm">
+                                <div class="form-group">
+                                    <label for="titulo">Título:</label>
+                                    <input type="text" class="form-control" id="titulo" name="titulo" required maxlength="255">
+                                </div>
+                                <div class="form-group">
+                                    <label for="descricao">Descrição:</label>
+                                    <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">URL:</label>
+                                    <input type="url" class="form-control" id="url" name="url" required maxlength="255" unique>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoria">Categoria:</label>
+                                    <input type="text" class="form-control" id="categoria" name="categoria" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="subcategoria">Subcategoria:</label>
+                                    <input type="text" class="form-control" id="subcategoria" name="subcategoria" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status:</label>
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="ativo" selected>Ativo</option>
+                                        <option value="inativo">Inativo</option>
+                                    </select>
+                                </div>
+        
+                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé aqui -->
+    <footer>
+        <p>&copy; 2023 Seu CRUD RSS. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Inclua o jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Inclua a biblioteca DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Inclua o Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+https://rss.feedspot.com/
+https://rss.feedspot.com/brazil_rss_feeds/
+https://rss.feedspot.com/brazil_football_rss_feeds/
+
+
+criar um crud para gerenciar links de feeds rss.
+
+estrutura de tabela: 
+-id (uuid)(indexado)(unique)(pk)
+-titulo (indexado)
+-descricao
+-url fedd (indexado)(unique)
+-url rss (indexado)(unique)
+-categoria
+-subcategoria
+-staus (ativo / inativo)
+
+utilizar html5, css3, js vanila para frontend
+utilizar php8 oo,  mysql pdo backend
+
+aplicar seo no frontend 
+aplicar ui/ux no frontend
+
+comunicação entre frontend e backend deve ser em forma de requisição http request
+
+criar cabeçalho e rodapé para aplicação.
+
+a listagem no frontend deve ser em tabela com ordenação e paginação com opção de pesquisa
