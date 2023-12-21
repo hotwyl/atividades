@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculadora de Custos de Anúncios - Ferramenta para gerenciar o orçamento de campanhas de anúncios patrocinados.">
+  <title>Calculadora de Custos de Anúncios</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+
+    header, footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+    }
+
+    #app {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .calculator {
+      margin: 20px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .help-link {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Calculadora de Custos de Anúncios</h1>
+  </header>
+
+  <div id="app">
+    <div class="calculator">
+      <label for="budget">Orçamento:</label>
+      <input type="number" v-model="budget" id="budget" placeholder="Digite o orçamento">
+
+      <span class="help-link" @click="showHelp('budget')">Precisa de ajuda?</span>
+
+      <label for="impressions">Impressões:</label>
+      <input type="number" v-model="impressions" id="impressions" placeholder="Digite o número de impressões">
+
+      <span class="help-link" @click="showHelp('impressions')">Precisa de ajuda?</span>
+
+      <label for="cpc">Custo por Clique (CPC):</label>
+      <input type="number" v-model="cpc" id="cpc" placeholder="Digite o custo por clique">
+
+      <span class="help-link" @click="showHelp('cpc')">Precisa de ajuda?</span>
+
+      <button @click="calculateCost">Calcular</button>
+
+      <h3>Resultado:</h3>
+      <p>Total do Custo: R$ {{ totalCost.toFixed(2) }}</p>
+
+      <span class="help-link" @click="showHelp('result')">Como foi calculado?</span>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2023 Calculadora de Custos de Anúncios</p>
+  </footer>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          budget: 0,
+          impressions: 0,
+          cpc: 0,
+          totalCost: 0,
+        };
+      },
+      methods: {
+        calculateCost() {
+          this.totalCost = this.budget / this.cpc * this.impressions;
+        },
+        showHelp(field) {
+          // Implementar lógica para exibir alertas de ajuda com explicações e exemplos
+          alert(`Ajuda para ${field}`);
+        },
+      },
+     
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>

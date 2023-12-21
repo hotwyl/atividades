@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculadora de Serviços de Redes Sociais para precificar gestão de redes sociais.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Calculadora de Serviços de Redes Sociais</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+
+    <header class="container mt-3 mb-4 text-center">
+        <h1>Calculadora de Serviços de Redes Sociais</h1>
+      </header>
+      
+      <div id="app" class="container">
+        <form @submit.prevent="calculatePrice">
+          <div class="form-group">
+            <label for="profiles">Número de Perfis:</label>
+            <div class="input-group">
+              <input type="number" v-model="profiles" class="form-control" required>
+              <button type="button" class="btn btn-outline-secondary" @click="showHelp('profiles')">Ajuda</button>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="platforms">Número de Plataformas:</label>
+            <div class="input-group">
+              <input type="number" v-model="platforms" class="form-control" required>
+              <button type="button" class="btn btn-outline-secondary" @click="showHelp('platforms')">Ajuda</button>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="posts">Número de Posts por Semana:</label>
+            <div class="input-group">
+              <input type="number" v-model="posts" class="form-control" required>
+              <button type="button" class="btn btn-outline-secondary" @click="showHelp('posts')">Ajuda</button>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="frequency">Frequência de Postagens (por semana):</label>
+            <div class="input-group">
+              <input type="number" v-model="frequency" class="form-control" required>
+              <button type="button" class="btn btn-outline-secondary" @click="showHelp('frequency')">Ajuda</button>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="engagement">Taxa de Engajamento (%):</label>
+            <div class="input-group">
+              <input type="number" v-model="engagement" class="form-control" required>
+              <button type="button" class="btn btn-outline-secondary" @click="showHelp('engagement')">Ajuda</button>
+            </div>
+          </div>
+      
+          <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+      
+        <div v-if="totalPrice !== null" class="result">
+          <h3>Preço estimado mensal: R$ {{ totalPrice.toFixed(2) }}</h3>
+          <button type="button" class="btn btn-info" @click="showHelp('result')">Ajuda</button>
+        </div>
+      </div>
+      
+      <footer class="footer">
+        &copy; 2023 Calculadora de Serviços de Redes Sociais. Todos os direitos reservados.
+      </footer>  
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.21/dist/vue.global.prod.js"></script>
+
+<script>
+const { createApp, ref } = Vue;
+
+const app = createApp({
+  data() {
+    return {
+      profiles: null,
+      platforms: null,
+      posts: null,
+      frequency: null,
+      engagement: null,
+      totalPrice: null,
+    };
+  },
+  methods: {
+    calculatePrice() {
+      // Lógica de precificação ajustada para um custo mensal
+      const basePrice = 0.05; // Preço base por perfil
+      const platformMultiplier = 10; // Preço adicional por plataforma
+      const postMultiplier = 5; // Preço adicional por post
+      const frequencyMultiplier = 2; // Preço adicional por frequência de postagem
+      const engagementMultiplier = 0.1; // Preço adicional por taxa de engajamento
+      const weeksInMonth = 4.33; // Média de semanas em um mês
+
+      const profilesPrice = this.profiles * basePrice;
+      const platformsPrice = this.platforms * platformMultiplier;
+      const postsPrice = this.posts * postMultiplier;
+      const frequencyPrice = (this.frequency * weeksInMonth) * frequencyMultiplier;
+      const engagementPrice = (this.profiles * this.engagement * engagementMultiplier) / 100;
+
+      this.totalPrice = (profilesPrice + platformsPrice + postsPrice + frequencyPrice + engagementPrice)*10;
+
+      this.totalPrice = this.totalPrice < 500 ? 500 : this.totalPrice;
+    },
+    showHelp(field) {
+        const helpMessages = {
+          profiles: "Insira o número de perfis que você gerencia.",
+          platforms: "Indique o número de plataformas de mídia social que você gerencia.",
+          posts: "Informe quantos posts você faz por semana.",
+          frequency: "Especifique a frequência de postagens por semana.",
+          engagement: "Forneça a taxa de engajamento média dos seus seguidores em porcentagem.",
+          result: "O resultado exibe o preço estimado mensal para os serviços de gestão de redes sociais."
+        };
+
+        alert(helpMessages[field]);
+      },
+  },
+});
+
+app.mount('#app');
+</script>
+
+</body>
+</html>

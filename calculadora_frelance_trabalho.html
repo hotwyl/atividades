@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de Custos para Freelancers">
+    <meta name="keywords" content="freelancer, custo hora, orçamento, calculadora">
+    <meta name="author" content="hotwyl">
+
+    <!-- Adicione mais tags meta conforme necessário para SEO -->
+
+    <title>Calculadora de Custos para Freelancers</title>
+
+    <!-- Adicione links para o CDN do Vue.js e estilos CSS aqui -->
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.calculator {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid #ddd;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculadora de Custos para Freelancers</h1>
+        <!-- Adicione qualquer informação adicional aqui -->
+    </header>
+
+    <main id="app">
+        <section class="calculator">
+            <label for="hours">Horas de Trabalho:</label>
+            <input type="number" id="hours" v-model="hours" @input="calculateCost" />
+            <button @click="showHelp('hours')">?</button>
+
+            <label for="hourlyRate">Valor por Hora (R$):</label>
+            <input type="number" id="hourlyRate" v-model="hourlyRate" @input="calculateCost" />
+            <button @click="showHelp('hourlyRate')">?</button>
+            <!-- Adicione mais campos de entrada e botões de ajuda conforme necessário -->
+
+            <div class="result">
+                <h2>Resultado</h2>
+                <p>O custo da sua mão de obra é: R$ {{ cost.toFixed(2) }}</p>
+                <button @click="showHelp('result')">?</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Adicione informações de contato ou links adicionais aqui -->
+        <p>&copy; 2023 Seu Nome. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Adicione links para scripts Vue.js aqui -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    hours: 0,
+                    hourlyRate: 0 // Defina o valor por hora aqui
+                    // Adicione mais propriedades conforme necessário
+                };
+            },
+            computed: {
+                cost() {
+                    // Adicione a lógica de cálculo do custo aqui
+                    return this.hours * this.hourlyRate;
+                }
+            },
+            methods: {
+                calculateCost() {
+                    // Adicione qualquer lógica adicional de cálculo aqui
+                },
+                showHelp(field) {
+                    // Implemente a lógica para exibir alertas de ajuda
+                    alert(`Ajuda para ${field}`);
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

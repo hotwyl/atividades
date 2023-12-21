@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculadora de Orçamento para Criação de Infoprodutos.">
+  <meta name="keywords" content="calculadora, orçamento, infoproduto, serviços digitais">
+  <title>Calculadora de Orçamento</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #343a40;
+      color: #ffffff;
+      padding: 15px 0;
+      text-align: center;
+    }
+    #app {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+    h1, h2 {
+      color: #007bff;
+    }
+    .mb-3 {
+      margin-bottom: 20px;
+    }
+    .input-group {
+      position: relative;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+    }
+    .btn-help {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-help:hover {
+      background-color: #0056b3;
+    }
+    .text-muted {
+      color: #6c757d;
+    }
+    button.btn-primary {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+    }
+    button.btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Calculadora de Orçamento</h1>
+</header>
+
+<div id="app" class="container mt-4">
+  <form>
+    <div class="mb-3">
+      <label for="horas">Horas de Trabalho:</label>
+      <div class="input-group">
+        <input type="number" id="horas" v-model="horas" class="form-control" required>
+        <button type="button" class="btn btn-help" @click="mostrarAjuda('horas')">?</button>
+      </div>
+      <small id="horasHelp" class="form-text text-muted">Exemplo: 20 horas</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="valorHora">Valor por Hora (R$):</label>
+      <div class="input-group">
+        <input type="number" id="valorHora" v-model="valorHora" class="form-control" required>
+        <button type="button" class="btn btn-help" @click="mostrarAjuda('valorHora')">?</button>
+      </div>
+      <small id="valorHoraHelp" class="form-text text-muted">Exemplo: 50.00</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="despesas">Despesas Adicionais (R$):</label>
+      <div class="input-group">
+        <input type="number" id="despesas" v-model="despesas" class="form-control">
+        <button type="button" class="btn btn-help" @click="mostrarAjuda('despesas')">?</button>
+      </div>
+      <small id="despesasHelp" class="form-text text-muted">Exemplo: 100.00</small>
+    </div>
+
+    <button type="button" class="btn btn-primary" @click="calcularOrcamento">Calcular</button>
+  </form>
+
+  <div v-if="orcamento !== null" class="mt-4">
+    <h2 class="text-center">Orçamento: R$ {{ orcamento.toFixed(2) }}</h2>
+    <button class="btn btn-help" @click="mostrarAjuda('orcamento')">?</button>
+    <small id="orcamentoHelp" class="form-text text-muted">Exemplo: 1500.00 (20 horas * R$50.00 + R$100.00)</small>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2023 Sua Empresa. Todos os direitos reservados.</p>
+</footer>
+
+<!-- Adicione o CDN do Vue 3 aqui -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.13/dist/vue.global.prod.js"></script>
+
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        horas: 0,
+        valorHora: 0,
+        despesas: 0,
+        orcamento: null,
+      };
+    },
+    methods: {
+      calcularOrcamento() {
+        const totalHoras = parseFloat(this.horas);
+        const valorHora = parseFloat(this.valorHora);
+        const despesas = parseFloat(this.despesas);
+
+        const orcamento = totalHoras * valorHora + despesas;
+
+        this.orcamento = orcamento;
+      },
+      mostrarAjuda(campo) {
+        alert(`Ajuda para ${campo}`);
+        // Adicione informações de ajuda específicas para cada campo, se necessário
+      },
+    },
+  });
+
+  app.mount('#app');
+</script>
+
+</body>
+</html>
