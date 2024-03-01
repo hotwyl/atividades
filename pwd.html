@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for SEO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate strong and secure passwords with our Password Generator. Secure Random Password Generator with customizable options for uppercase, lowercase, numbers, and special characters.">
+    <meta name="keywords" content="password generator, secure passwords, random passwords, online security, strong passwords">
+    <meta name="author" content="hotwyl">
+
+    <title>Password Generator - Gerador de Senha</title>
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.6/dist/vuetify.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+    <!-- <link rel="icon" href="favicon.png" type="image/png"> -->
+    <style> </style>
+</head>
+<body id="app">
+
+    <v-app>
+        <v-app-bar app>
+            
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+            <v-toolbar-title>Password Generator</v-toolbar-title>
+           
+            <!-- <v-btn @click="aboutDialog = true" text>About</v-btn> -->
+            
+            <v-spacer></v-spacer>
+
+
+            <v-btn text>
+                <v-icon>mdi-view-dashboard</v-icon>Home
+            </v-btn>
+
+            <v-btn text @click="aboutDialog = true">
+                <v-icon>mdi-forum</v-icon>About
+            </v-btn>
+
+            <!-- <v-list-item prepend-icon="mdi-forum" title="About" value="About"></v-list-item> -->
+        </v-app-bar>
+
+        <v-main>
+            <v-breadcrumbs :items="['/', 'home']">
+                <template v-slot:divider>
+                    <v-icon icon="mdi-forward"></v-icon>
+                  </template>
+            </v-breadcrumbs>
+            <v-container>
+                <!-- Password Generator Component -->
+                <password-generator></password-generator>
+
+                <!-- About Dialog Component -->
+                <v-dialog v-model="aboutDialog">
+                    <v-card max-width="600" prepend-icon="mdi-update">
+                        <v-card-title>About Password Generator</v-card-title>
+                        <v-card-text>
+                            <p>This Password Generator allows you to create strong and secure passwords with customizable options.</p>
+                            <p>Securely Generate Strong Passwords with our Password Generator. Your online security is our priority.</p>
+                            <!-- Add more instructions or details as needed -->
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-btn @click="aboutDialog = false" color="primary">Close</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+                
+            </v-container>
+        </v-main>
+
+        <v-footer
+            class="bg-indigo-lighten-1 text-center d-flex flex-column"
+        >
+            <div class="my-5">
+                <v-icon class="mx-5" variant="text" icon="mdi-vuetify"></v-icon>
+                <v-icon class="mx-5" variant="text" icon="mdi-facebook"></v-icon>
+                <v-icon class="mx-5" variant="text" icon="mdi-twitter"></v-icon>
+                <v-icon class="mx-5" variant="text" icon="mdi-linkedin"></v-icon>
+                <v-icon class="mx-5" variant="text" icon="mdi-instagram"></v-icon>
+            </div>
+        
+            <v-divider></v-divider>
+        
+            <div>
+            {{ new Date().getFullYear() }} —  <strong> Vuetify </strong> &copy; Password Generator. &reg; All rights reserved.
+            </div>
+        </v-footer>
+    </v-app>
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Vuetify -->
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.6/dist/vuetify.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- Seu script personalizado -->
+    <script>
+        const { createApp, ref } = Vue;
+        const { createVuetify } = Vuetify
+
+        const vuetify = createVuetify()
+
+        const app = createApp()
+
+        const PasswordGenerator = {
+            template: `
+                <v-row justify="center" v-if="!password">
+                    <v-col md="6">
+                        <v-form @submit.prevent="generatePassword">
+                            <v-slider
+                            v-model.number="length"
+                                :max="128"
+                                :min="6"
+                                :step="1"
+                                thumb-label
+                                required
+                            >
+                            <template v-slot:append>
+                                <v-text-field
+                                    v-model="length"
+                                    density="compact"
+                                    style="width: 70px"
+                                    type="number"
+                                    hide-details
+                                    single-line
+                                ></v-text-field>
+                                </template>
+                            </v-slider>
+                            <v-checkbox v-model="includeUppercase" label="Include Uppercase Letters"></v-checkbox>
+                            <v-checkbox v-model="includeLowercase" label="Include Lowercase Letters"></v-checkbox>
+                            <v-checkbox v-model="includeNumbers" label="Include Numbers"></v-checkbox>
+                            <v-checkbox v-model="includeSymbols" label="Include Symbols"></v-checkbox>
+                            <v-btn type="submit" color="primary" block>Generate</v-btn>
+                        </v-form>
+                    </v-col>
+                </v-row>
+                
+                <v-row justify="center" v-if="password">
+                    
+
+                    <v-sheet
+                        class="pa-4 text-center mx-auto"
+                        elevation="12"
+                        max-width="600"
+                        rounded="lg"
+                        width="100%"
+                    >
+                        <v-icon
+                        class="mb-5"
+                        color="success"
+                        icon="mdi-check-circle"
+                        size="112"
+                        ></v-icon>
+
+                        <h2 class="text-h5 mb-6">You reconciled this account</h2>
+
+                        <v-col>
+                            <v-alert border="top" border-color="success" elevation="1" class="text-center">{{ password }}</v-alert>
+                        </v-col>
+
+                        <br>
+
+                        <v-divider class="mb-4"></v-divider>
+
+                        <div class="d-flex justify-space-evenly">
+                            <v-btn
+                                @click="copyToClipboard"
+                                color="info"
+                                rounded
+                            >
+                                Copy Password
+                            </v-btn>
+                            <v-btn
+                                @click="resetForm"
+                                color="primary"
+                                rounded
+                            >
+                                Back to Home
+                            </v-btn>
+                        </div>
+                    </v-sheet>
+
+                </v-row>
+            `,
+            data() {
+                return {
+                    length: 12,
+                    includeUppercase: true,
+                    includeLowercase: true,
+                    includeNumbers: true,
+                    includeSymbols: true,
+                    password: "",
+                    aboutDialog: false,
+                };
+            },
+            methods: {
+                generatePassword() {
+                    const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
+                    const numberChars = "0123456789";
+                    const symbolChars = "!@#$%^&*()_+-=[]{}|;:',.<>/?";
+                    let characterSet = "";
+
+                    if (this.includeUppercase) characterSet += upperCaseChars;
+                    if (this.includeLowercase) characterSet += lowerCaseChars;
+                    if (this.includeNumbers) characterSet += numberChars;
+                    if (this.includeSymbols) characterSet += symbolChars;
+
+                    if (!characterSet.length) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please select at least one character type!'
+                        });
+                        return;
+                    }
+
+                    let password = "";
+                    for (let i = 0; i < this.length; i++) {
+                        password += characterSet.charAt(Math.floor(Math.random() * characterSet.length));
+                    }
+
+                    this.password = password;
+                },
+                copyToClipboard() {
+                    navigator.clipboard.writeText(this.password);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password Copied!',
+                        text: 'The password has been copied to the clipboard.',
+                    });
+                },
+                resetForm() {
+                    this.length = 12;
+                    this.includeUppercase = true;
+                    this.includeLowercase = true;
+                    this.includeNumbers = true;
+                    this.includeSymbols = true;
+                    this.password = "";
+                },
+                openAboutDialog() {
+                    this.aboutDialog = true;
+                },
+                closeAboutDialog() {
+                    this.aboutDialog = false;
+                },
+            }
+        };
+
+        createApp({
+            components: {
+                'password-generator': PasswordGenerator
+            },
+        }).use(vuetify).mount('#app');
+    </script>
+</body>
+</html>
