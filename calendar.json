@@ -1,0 +1,100 @@
+[
+    {
+        "title": "Aniversário",
+        "description": "Celebração do aniversário",
+        "start": "2024-03-15",
+        "end": "2024-03-15",
+        "color": "blue"
+    },
+    {
+        "title": "Feriado Nacional",
+        "description": "Dia de descanso nacional",
+        "start": "2024-03-25",
+        "end": "2024-03-25",
+        "color": "red"
+    },
+    {
+        "title": "Reunião Importante",
+        "description": "Reunião crucial para o projeto",
+        "start": "2024-03-10",
+        "end": "2024-03-10",
+        "color": "green"
+    },
+    {
+        "title": "Aniversário",
+        "description": "",
+        "start": "2024-03-11",
+        "end": "2024-03-11",
+        "color": "blue"
+      },
+      {
+        "title": "Feriado Nacional",
+        "description": "",
+        "start": "2024-04-25",
+        "end": "2024-04-25",
+        "color": "red"
+      },
+      {
+        "title": "Reunião Importante",
+        "description": "",
+        "start": "2024-04-10",
+        "end": "2024-04-12",
+        "color": "green"
+      },
+      {
+        "title": "Evento Recorrente",
+        "description": "",
+        "start": "2024-04-01",
+        "end": "2024-04-01",
+        "color": "orange"
+      },
+      {
+        "title": "Conferência",
+        "description": "",
+        "start": "2024-04-15",
+        "end": "2024-04-17",
+        "color": "purple"
+      },
+      {
+        "title": "Lançamento de Produto",
+        "description": "",
+        "start": "2024-05-20",
+        "end": "2024-05-20",
+        "color": "cyan"
+      },
+      {
+        "title": "Dia da Independência",
+        "description": "",
+        "start": "2024-05-07",
+        "end": "2024-05-07",
+        "color": "red"
+      },
+      {
+        "title": "Workshop",
+        "description": "",
+        "start": "2024-05-10",
+        "end": "2024-05-10",
+        "color": "brown"
+      },
+      {
+        "title": "Feriado Local",
+        "description": "",
+        "start": "2024-05-01",
+        "end": "2024-05-01",
+        "color": "red"
+      },
+      {
+        "title": "Concerto",
+        "description": "",
+        "start": "2024-05-15",
+        "end": "2024-05-15",
+        "color": "pink"
+      },
+      {
+        "title": "Evento Especial",
+        "description": "Um evento muito especial",
+        "start": "2025-05-20",
+        "end": "2025-05-21",
+        "color": "gold"
+      }
+]

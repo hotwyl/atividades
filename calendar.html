@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendário com Vuetify e Vue.js</title>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.6/dist/vuetify.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.6/dist/vuetify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body id="app">
+
+<script>
+    const { createApp, ref } = Vue;
+    const { createVuetify } = Vuetify
+
+    const vuetify = createVuetify()
+
+    const app = Vue.createApp({
+
+    data() {
+      return {
+        holidays: [], // Array para armazenar feriados
+        events: [],   // Array para armazenar eventos
+        selectedDate: null, // Data selecionada
+        selectedMonth: null,
+        calendar: null,
+      };
+    },
+    computed: {
+      months() {
+        // Lista de meses para o seletor
+        return [
+          'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+          'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+        ];
+      },
+    },
+    mounted() {
+      // Carregar feriados e eventos do JSON (substitua 'seu-arquivo.json' pelo caminho do seu arquivo)
+      this.loadJSON('calendar.json');
+    },
+    methods: {
+      loadJSON(filePath) {
+        // Lógica para carregar dados do JSON e atribuir a this.holidays e this.events
+        // Exemplo: Use uma requisição Ajax ou fetch API para obter os dados do arquivo JSON
+        // e atribua os dados a this.holidays e this.events
+        axios.get(filePath)
+          .then(response => {
+            this.events = response.data;
+            this.initializeCalendar();
+          })
+          .catch(error => {
+            console.error('Erro ao carregar o arquivo JSON', error);
+          });
+      },
+      initializeCalendar() {
+        // Inicializar o calendário usando a biblioteca FullCalendar
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'multiMonthFourMonth',
+          events: this.events,
+          eventColor: 'blue',
+          views: {
+            multiMonthFourMonth: {
+              type: 'multiMonth',
+              duration: { months: 3 },
+              month: 'long', 
+              year: 'numeric'
+            },
+          },
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
+          },
+          
+        });
+        calendar.render();
+      },
+        updateCalendar() {
+            // Atualizar o calendário para o mês selecionado
+            if (this.selectedMonth !== null) {
+            const selectedMonthIndex = this.months.indexOf(this.selectedMonth);
+            if (selectedMonthIndex !== -1) {
+                this.calendar.gotoDate(`2024-${selectedMonthIndex + 1}-01`);
+            }
+            }
+        },
+      // Adicione métodos adicionais conforme necessário
+    },
+    watch: {
+      selectedDate(newDate) {
+        // Lógica para lidar com a mudança de data selecionada
+        // Exemplo: Atualizar a exibição de eventos ou feriados para a nova data
+      },
+      holidays(newHolidays) {
+        // Lógica para lidar com a mudança de feriados
+        // Exemplo: Atualizar o calendário para exibir feriados
+      },
+      events(newEvents) {
+        // Lógica para lidar com a mudança de eventos
+        // Exemplo: Atualizar o calendário para exibir eventos
+      },
+    },
+    template: `
+      <v-app>
+        <v-container>
+            <v-row>
+        <v-col cols="12" md="4">
+          <v-select
+            v-model="selectedMonth"
+            :items="months"
+            label="Selecione um Mês"
+            @change="updateCalendar"
+          ></v-select>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <div id="calendar"></div>
+          <v-calendar
+            v-model="selectedDate"
+            :events="events"
+            :event-color="getEventColor"
+          >
+            <template #event="{ event }">
+              {{ event.name }}
+            </template>
+          </v-calendar>
+        </v-col>
+      </v-row>
+        </v-container>
+      </v-app>
+    `,
+  });
+
+  app.use(vuetify).mount('#app');
+</script>
+
+</body>
+</html>
+
+<!-- 
+desbravadoresshekinahjp@gmail.com
+will.from.brasil@gmail.com
+
+carrosel com conteudos e materiais para acesso
+Consulta de base de conteudo
+
+retornar base64 consulta api
+
+sorteio
+churrascometro
+seu peso
+-->
