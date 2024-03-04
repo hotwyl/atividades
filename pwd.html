@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Meta tags for SEO -->
     <meta charset="UTF-8">
@@ -15,31 +16,30 @@
     <!-- Favicon -->
     <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
     <!-- <link rel="icon" href="favicon.png" type="image/png"> -->
-    <style> </style>
+    <style>
+
+    </style>
 </head>
+
 <body id="app">
 
     <v-app>
-        <v-app-bar app>
-            
+        <v-app-bar>
+
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
             <v-toolbar-title>Password Generator</v-toolbar-title>
-           
-            <!-- <v-btn @click="aboutDialog = true" text>About</v-btn> -->
-            
-            <v-spacer></v-spacer>
 
+            <v-spacer></v-spacer>
 
             <v-btn text>
                 <v-icon>mdi-view-dashboard</v-icon>Home
             </v-btn>
 
-            <v-btn text @click="aboutDialog = true">
+            <v-btn text @click="openAboutDialog">
                 <v-icon>mdi-forum</v-icon>About
             </v-btn>
 
-            <!-- <v-list-item prepend-icon="mdi-forum" title="About" value="About"></v-list-item> -->
         </v-app-bar>
 
         <v-main>
@@ -50,42 +50,44 @@
             </v-breadcrumbs>
             <v-container>
                 <!-- Password Generator Component -->
-                <password-generator></password-generator>
+                <password-generator :about-dialog="aboutDialog" @open-about-dialog="openAboutDialog"></password-generator>
 
                 <!-- About Dialog Component -->
-                <v-dialog v-model="aboutDialog">
-                    <v-card max-width="600" prepend-icon="mdi-update">
-                        <v-card-title>About Password Generator</v-card-title>
+                <v-dialog v-model="aboutDialog" max-width="600">
+                    <v-card class="text-center d-flex flex-column">
+                        <v-card-title class="pt-10">
+                            <v-icon>mdi-information</v-icon>
+                            <b>About Password Generator</b>
+                            <v-icon>mdi-alert-circle</v-icon>
+                        </v-card-title>
                         <v-card-text>
                             <p>This Password Generator allows you to create strong and secure passwords with customizable options.</p>
                             <p>Securely Generate Strong Passwords with our Password Generator. Your online security is our priority.</p>
-                            <!-- Add more instructions or details as needed -->
+                            <p>Choose the length of the password and select the character types you want to include: uppercase, lowercase, numbers, and special characters.</p>
+                            <p>Click the "Generate" button to create a random password. You can copy the password to the clipboard and use it for your accounts.</p>
                         </v-card-text>
-                        <v-card-actions>
-                            <v-btn @click="aboutDialog = false" color="primary">Close</v-btn>
+                        <v-card-actions class="text-center d-flex flex-column">
+                            <v-btn @click="closeAboutDialog" size="small" color="red" prepend-icon="mdi-close-circle">Close</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
 
-                
             </v-container>
         </v-main>
 
-        <v-footer
-            class="bg-indigo-lighten-1 text-center d-flex flex-column"
-        >
+        <v-footer class="bg-indigo-lighten-1 text-center d-flex flex-column">
             <div class="my-5">
-                <v-icon class="mx-5" variant="text" icon="mdi-vuetify"></v-icon>
+                <v-icon class="mx-5" variant="text" icon="mdi-youtube"></v-icon>
                 <v-icon class="mx-5" variant="text" icon="mdi-facebook"></v-icon>
                 <v-icon class="mx-5" variant="text" icon="mdi-twitter"></v-icon>
                 <v-icon class="mx-5" variant="text" icon="mdi-linkedin"></v-icon>
                 <v-icon class="mx-5" variant="text" icon="mdi-instagram"></v-icon>
             </div>
-        
+
             <v-divider></v-divider>
-        
+
             <div>
-            {{ new Date().getFullYear() }} —  <strong> Vuetify </strong> &copy; Password Generator. &reg; All rights reserved.
+                {{ new Date().getFullYear() }} — <strong> Vuetify </strong> &copy; Password Generator. &reg; All rights reserved.
             </div>
         </v-footer>
     </v-app>
@@ -100,10 +102,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<!-- Seu script personalizado -->
+    <!-- Seu script personalizado -->
     <script>
-        const { createApp, ref } = Vue;
-        const { createVuetify } = Vuetify
+        const {
+            createApp,
+            ref
+        } = Vue;
+        const {
+            createVuetify
+        } = Vuetify
 
         const vuetify = createVuetify()
 
@@ -200,6 +207,7 @@
                     aboutDialog: false,
                 };
             },
+            props: ['aboutDialog'],
             methods: {
                 generatePassword() {
                     const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -247,18 +255,30 @@
                 },
                 openAboutDialog() {
                     this.aboutDialog = true;
+                    this.$emit('open-about-dialog');
                 },
                 closeAboutDialog() {
                     this.aboutDialog = false;
                 },
-            }
+            },
         };
 
         createApp({
-            components: {
-                'password-generator': PasswordGenerator
+            data() {
+                return {
+                    aboutDialog: false,
+                };
             },
-        }).use(vuetify).mount('#app');
+            methods: {
+                openAboutDialog() {
+                    this.aboutDialog = true;
+                },
+                closeAboutDialog() {
+                    this.aboutDialog = false;
+                },
+            },
+        }).use(vuetify).component('password-generator', PasswordGenerator).mount('#app');
     </script>
 </body>
+
 </html>
