@@ -1,0 +1,323 @@
+{
+  "perguntas":[
+     {
+        "pergunta":"Qual dos apóstolos de Jesus era conhecido como 'o discípulo amado'?",
+        "resposta":"João",
+        "alternativas":[
+           "Pedro",
+           "André",
+           "Tiago",
+           "João"
+        ],
+        "dica":"Autor do Evangelho de João e do Livro do Apocalipse."
+     },
+     {
+        "pergunta":"Quem foi vendido por seus irmãos como escravo no Egito?",
+        "resposta":"José",
+        "alternativas":[
+           "Benjamim",
+           "Judá",
+           "Simeão",
+           "José"
+        ],
+        "dica":"Possuidor de um manto de muitas cores."
+     },
+     {
+        "pergunta":"Qual rei foi conhecido por sua sabedoria e por construir o Templo de Jerusalém?",
+        "resposta":"Salomão",
+        "alternativas":[
+           "Davi",
+           "Josafá",
+           "Ezequias",
+           "Salomão"
+        ],
+        "dica":"Filho de Davi e Betsabá."
+     },
+     {
+        "pergunta":"Quem foi a primeira mulher de Adão, de acordo com a Bíblia?",
+        "resposta":"Eva",
+        "alternativas":[
+           "Débora",
+           "Rute",
+           "Eva",
+           "Sara"
+        ],
+        "dica":"Criada a partir de uma costela de Adão."
+     },
+     {
+        "pergunta":"Qual personagem bíblico foi engolido por um grande peixe e permaneceu vivo em seu ventre por três dias?",
+        "resposta":"Jonas",
+        "alternativas":[
+           "Isaías",
+           "Jeremias",
+           "Ezequiel",
+           "Jonas"
+        ],
+        "dica":"Foi enviado para pregar em Nínive."
+     },
+     {
+        "pergunta":"Quem foi a mãe de João Batista?",
+        "resposta":"Isabel",
+        "alternativas":[
+           "Maria",
+           "Raquel",
+           "Isabel",
+           "Sara"
+        ],
+        "dica":"Era prima de Maria, a mãe de Jesus."
+     },
+     {
+        "pergunta":"Qual era a profissão de Mateus antes de se tornar um dos doze apóstolos de Jesus?",
+        "resposta":"Publicano (cobrador de impostos)",
+        "alternativas":[
+           "Pescador",
+           "Carpinteiro",
+           "Tecelão",
+           "Publicano"
+        ],
+        "dica":"Jesus o chamou enquanto ele estava sentado na coletoria de impostos."
+     },
+     {
+        "pergunta":"Qual o primeiro livro da Bíblia?",
+        "resposta":"Gênesis",
+        "alternativas":[
+           "Êxodo",
+           "Levítico",
+           "Números",
+           "Gênesis"
+        ],
+        "dica":"Livro que narra a criação do mundo."
+     },
+     {
+        "pergunta":"Quem foi o pai de Isaque?",
+        "resposta":"Abraão",
+        "alternativas":[
+           "Ismael",
+           "Jacó",
+           "Abraão",
+           "Isaque"
+        ],
+        "dica":"Conhecido como o pai da fé."
+     },
+     {
+        "pergunta":"Quem foi o personagem bíblico que matou Golias?",
+        "respostas":[
+           "Davi",
+           "Moisés",
+           "Sansão",
+           "Abraão"
+        ],
+        "respostaCorreta":"Davi",
+        "dica":"Derrotou o gigante com uma funda e uma pedra."
+     },
+     {
+        "pergunta":"Quantos discípulos Jesus teve?",
+        "respostas":[
+           "10",
+           "12",
+           "7",
+           "15"
+        ],
+        "respostaCorreta":"12",
+        "dica":"Corresponde ao número de tribos de Israel."
+     },
+     {
+        "pergunta":"Qual foi o primeiro milagre de Jesus registrado na Bíblia?",
+        "respostas":[
+           "Multiplicação dos pães e peixes",
+           "Andar sobre as águas",
+           "Transformar água em vinho",
+           "Ressurreição de Lázaro"
+        ],
+        "respostaCorreta":"Transformar água em vinho",
+        "dica":"Ocorreu em uma festa de casamento em Caná da Galileia."
+     },
+     {
+        "pergunta":"Qual profeta foi chamado por Deus para pregar ao povo de Nínive?",
+        "respostas":[
+           "Isaías",
+           "Josué",
+           "Jonas",
+           "Jeremias"
+        ],
+        "respostaCorreta":"Jonas",
+        "dica":"Foi engolido por um grande peixe por desobedecer a ordem divina."
+     },
+     {
+        "pergunta":"Quem foi a mãe de Jesus Cristo?",
+        "respostas":[
+           "Maria",
+           "Raquel",
+           "Sara",
+           "Rebeca"
+        ],
+        "respostaCorreta":"Maria",
+        "dica":"Recebeu a visita do Anjo Gabriel anunciando o nascimento de Jesus."
+     },
+     {
+        "pergunta":"Quem foi o primeiro homem criado por Deus?",
+        "resposta":"Adão",
+        "alternativas":[
+           "Moisés",
+           "Jesus",
+           "Pedro",
+           "Adão"
+        ],
+        "dica":"Criado a partir do pó da terra."
+     },
+     {
+        "pergunta":"Quantos apóstolos Jesus escolheu para segui-lo?",
+        "resposta":"Doze",
+        "alternativas":[
+           "Dez",
+           "Quinze",
+           "Doze",
+           "Vinte"
+        ],
+        "dica":"Representando as doze tribos de Israel."
+     },
+     {
+        "pergunta":"Quem construiu a arca conforme as instruções de Deus para salvar sua família e os animais do dilúvio?",
+        "resposta":"Noé",
+        "alternativas":[
+           "Abraão",
+           "Moisés",
+           "Josué",
+           "Noé"
+        ],
+        "dica":"A arca foi construída para sobreviver ao grande dilúvio."
+     },
+     {
+        "pergunta":"Quantos dias e noites durou o dilúvio que inundou a terra?",
+        "resposta":"Quarenta",
+        "alternativas":[
+           "Sete",
+           "Vinte",
+           "Quarenta",
+           "Cinquenta"
+        ],
+        "dica":"Tempo em que choveu sem parar durante o dilúvio."
+     },
+     {
+        "pergunta":"Qual dos discípulos de Jesus duvidou de sua ressurreição até que pudesse tocar em suas feridas?",
+        "resposta":"Tomé",
+        "alternativas":[
+           "João",
+           "André",
+           "Tomé",
+           "Mateus"
+        ],
+        "dica":"Conhecido como 'Dídimo', que significa 'gêmeo'."
+     },
+     {
+        "pergunta":"Quem era conhecido como 'o homem segundo o coração de Deus'?",
+        "resposta":"Davi",
+        "alternativas":[
+           "Saul",
+           "Golias",
+           "Isaías",
+           "Davi"
+        ],
+        "dica":"Rei de Israel que compôs diversos salmos."
+     },
+     {
+        "pergunta":"Quem foi vendido por seus irmãos como escravo no Egito e se tornou um importante líder?",
+        "resposta":"José",
+        "alternativas":[
+           "Isaque",
+           "Jacó",
+           "José",
+           "Benjamim"
+        ],
+        "dica":"Conhecido por sua túnica de muitas cores e seus sonhos proféticos."
+     },
+     {
+        "pergunta":"Qual é o primeiro livro do Antigo Testamento na Bíblia cristã?",
+        "resposta":"Gênesis",
+        "alternativas":[
+           "Êxodo",
+           "Deuteronômio",
+           "Gênesis",
+           "Salmos"
+        ],
+        "dica":"Conta a história da criação e dos patriarcas."
+     },
+     {
+        "pergunta":"Quem foi escolhido para libertar o povo de Israel da escravidão no Egito?",
+        "resposta":"Moisés",
+        "alternativas":[
+           "Abraão",
+           "Isaque",
+           "Moisés",
+           "Josué"
+        ],
+        "dica":"Recebeu as Tábuas da Lei no Monte Sinai."
+     },
+     {
+        "pergunta":"Qual dos livros da Bíblia é conhecido por relatar as parábolas de Jesus?",
+        "resposta":"Mateus",
+        "alternativas":[
+           "Lucas",
+           "Atos",
+           "Mateus",
+           "Romanos"
+        ],
+        "dica":"Apresenta o chamado 'Sermão da Montanha'."
+     },
+     {
+        "pergunta":"Quem foi escolhido por Deus para liderar os israelitas na conquista da Terra Prometida?",
+        "resposta":"Josué",
+        "alternativas":[
+           "Saul",
+           "Samuel",
+           "Josué",
+           "Gideão"
+        ],
+        "dica":"Substituiu Moisés como líder do povo hebreu."
+     },
+     {
+        "pergunta":"Quem recolheu os animais em pares na arca antes do dilúvio?",
+        "resposta":"Noé",
+        "alternativas":[
+           "Abraão",
+           "José",
+           "Noé",
+           "Isaque"
+        ],
+        "dica":"Responsável por preservar a vida durante o dilúvio."
+     },
+     {
+        "pergunta":"Quem foi o autor do Livro de Salmos na Bíblia?",
+        "resposta":"Davi",
+        "alternativas":[
+           "Salomão",
+           "Jó",
+           "Daniel",
+           "Davi"
+        ],
+        "dica":"Muitos dos salmos são atribuídos a este rei de Israel."
+     },
+     {
+        "pergunta":"Quem foi jogado na cova dos leões por orar a Deus em desobediência ao Rei Dario?",
+        "resposta":"Daniel",
+        "alternativas":[
+           "Ezequiel",
+           "Isaías",
+           "Jeremias",
+           "Daniel"
+        ],
+        "dica":"Conhecido por sua fidelidade a Deus em meio às provações."
+     },
+     {
+        "pergunta":"Como é conhecido o relato do nascimento de Jesus nos Evangelhos?",
+        "resposta":"Natal",
+        "alternativas":[
+           "Páscoa",
+           "Halloween",
+           "Natal",
+           "Carnaval"
+        ],
+        "dica":"Celebração cristã que comemora o nascimento de Jesus Cristo."
+     }
+  ]
+}
