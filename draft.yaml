@@ -1,0 +1,108 @@
+# https://github.com/especializati/setup-docker-laravel
+# composer require -W --dev laravel-shift/blueprint
+# blueprint:build
+# blueprint:erase
+
+models:
+  User:
+    first_name: string:100
+    last_name: string:100
+    full_name: string:250
+    email: string:50 unique
+    password: string:255
+    created_at: timestamp
+    updated_at: timestamp
+    relationships:
+      hasMany: Post, Comment
+  Transaction:
+    payment_token: string:40
+    total: decimal:8,2
+    user_id: id foreign
+    post_id: id foreign:posts
+    status: enum:pending,successful,failed
+  Post:
+    title: string:100
+    slug: string:150
+    content: longtext
+    remark: string:100 nullable
+    user_id: id unsigned foreign ondelete:cascade
+    tag_id: id unsigned foreign nullable
+    published_at: nullable timestamp
+    relationships:
+      hasMany: Transaction, Tag   
+      belongsTo: User
+  Comment:
+    content: text
+    user.id: id unsigned foreign ondelete:cascade
+    post.id: id unsigned foreign ondelete:cascade
+    published_at: nullable timestamp
+    created_at: timestamp
+    updated_at: timestamp
+    relationships:
+      belongsTo: User, Post
+  Tag:
+    tag_name: string:100
+    created_at: timestamp
+    updated_at: timestamp
+    relationships:
+      belongsToMany: Post
+  Widget:
+    id: id
+    deleted_at: timestamp
+    created_at: timestamp
+    updated_at: timestamp
+controllers:
+  Post:
+    index:
+      query: all:posts paginate:10
+      render: post.index with:posts
+    create:
+      validate: title, content, author_id
+      find: user.id
+      render: post.create with:user
+    store:
+      validate: title, slug, content, remark, published_at, author_id
+      save: post
+      send: ReviewNotification to:post.author with:post
+      notify: post.author ReviewPost with:post
+      dispatch: SyncMedia with:post
+      fire: NewPost with:post
+      flash: post.title
+      redirect: post.show
+    show:
+      query: all:comments where:post.id paginate:10
+      render: post.show with:post,comments
+    edit:
+      render: post.edit with:post
+    update:
+      validate: post
+      update: post
+      flash: post.id
+      redirect: post.index
+    destroy:
+      delete: post
+      flash: post.error
+      redirect: post.index
+    download:
+      find: post.id
+      respond: post
+  Transaction: 
+    store:
+      validate: transaction
+      save: transaction
+      flash: transaction.id
+      redirect: post.index
+    show:
+      render: transaction.show with:transaction
+  Report:
+    invokable:
+      fire: ReportGenerated
+      render: report
+  Comment:
+    show:
+      render: comment.show with:comment
+  User:
+    resource: all
+    index:
+      resource: user
+seeders: User, Post, Comment, Transaction, Tag, Widget
