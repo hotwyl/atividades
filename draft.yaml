@@ -1,3 +1,4 @@
+# curl -s "https://laravel.build/unigameweek?with=mysql,redis,mailhog" | bash
 # https://github.com/especializati/setup-docker-laravel
 # composer require -W --dev laravel-shift/blueprint
 # blueprint:build
